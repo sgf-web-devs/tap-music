@@ -1,0 +1,25 @@
+@mixin container{
+	@include outer-container;
+	@include media($tablet){ width: auto; }
+}
+
+.container
+{
+	@include container; padding: 0 15px; position: relative;
+}
+
+.mobile{ display: none !important; }
+
+.is_mobile
+{
+	.mobile{ display: inline-block !important; }
+}
+
+.ta-right{ text-align: right !important; }
+.ta-left{ text-align: left !important; }
+.ta-middle{ text-align: center !important; }
+.va-middle{ vertical-align: middle !important; }
+.no-margin{ margin: 0 !important; }
+.no-margin-bottom{ margin-bottom: 0 !important; }
+.no-margin-top{ margin-top: 0 !important; }
+.margin-top{ margin-top: 1em; }

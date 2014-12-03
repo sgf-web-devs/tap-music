@@ -1,0 +1,3 @@
+@mixin trans{
+	 @include transition ( all .25s linear );
+}

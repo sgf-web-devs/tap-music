@@ -1,0 +1,27 @@
+// Grid
+@import "neat/neat-helpers"; // or "neat/neat-helpers" when not in Rails
+// $visual-grid: true;
+// Change the grid settings
+//$column: 95px;
+//$gutter: 20px;
+
+$grid-columns: 12;
+$max-width: 1270px; // Set to a static pixel amount for a locked size otherwise 100%
+
+// Define your breakpoints
+$mobile: new-breakpoint(max-width 480px 4);
+$mobile_landscape: new-breakpoint(max-width 320px 4);
+
+$pre_mobile: new-breakpoint(max-width 600px 4);
+
+$smaller_than_tablet: new-breakpoint(max-width 767px 8);
+$tablet: new-breakpoint(max-width 768px 8);
+
+$desktop: new-breakpoint(max-width 1280px 12);
+$desktop_large: new-breakpoint(min-width 1281px 12);
+$is_desktop: new-breakpoint(min-width 1240px 12);
+
+
+
+// Colors
+$blue: #2cb4cc;

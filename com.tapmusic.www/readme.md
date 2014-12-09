@@ -1,5 +1,7 @@
 ## TAP Music
 
+![alt tag](https://cldup.com/DllsrMa3JH-3000x3000.png)
+
 This is the repo for the web interface to TAP Music.  If you are looking for the player it is at
 https://github.com/sgf-web-devs/tap-music-player
 

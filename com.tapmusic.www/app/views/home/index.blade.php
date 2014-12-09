@@ -86,6 +86,7 @@
                             <div>
                             <h1 title="{{ track.name }}">{{ track.name }}</h1>
                             <h5>{{ track.artists[0].name }}</h5>
+                            <a href="#" class="saveToList" ng-click="open()"><i class="fa fa-floppy-o" style="color:white; font-size: 16px; padding-left: 10px;"></i></a>
                             </div>
                         </li>
                     </ul>
@@ -94,6 +95,24 @@
             </div>
         </aside>
         <footer class="footer">Footer</footer>
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Save To Playlist</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="item in items">
+                        <a ng-click="selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
     </div>
 @stop
 

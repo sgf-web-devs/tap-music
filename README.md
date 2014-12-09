@@ -27,6 +27,10 @@ return [
 
     'PUSHER_APP_SECRET' => '1234',
 
+    'PRESENCE_CHANNEL' => 'presence-1234',
+
+    'PLAYER_CHANNEL' => '1234',
+
     'SPOTIFY_CLIENT_ID' => '1234',
 
     'SPOTIFY_CLIENT_SECRET' => '1234',

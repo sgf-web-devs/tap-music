@@ -21,15 +21,15 @@ return [
 
     'TM_DB_PASS' => 'password',
 
-    'PUSHER_APP_ID' => '96190',
+    'PUSHER_APP_ID' => '1234',
 
-    'PUSHER_APP_KEY' => 'bb58ca596665e104e52a',
+    'PUSHER_APP_KEY' => '1234',
 
-    'PUSHER_APP_SECRET' => 'e0e17934e6e4facda0c6',
+    'PUSHER_APP_SECRET' => '1234',
 
-    'SPOTIFY_CLIENT_ID' => '7d113f2c09ef4021b4ea69949e6a55f8',
+    'SPOTIFY_CLIENT_ID' => '1234',
 
-    'SPOTIFY_CLIENT_SECRET' => 'b0dadf9563cf4092aec821cecb4c4544',
+    'SPOTIFY_CLIENT_SECRET' => '1234',
 
     'SPOTIFY_CALLBACK_URL' => '/auth/spotify-callback',
 ];

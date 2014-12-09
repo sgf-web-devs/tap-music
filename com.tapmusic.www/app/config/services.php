@@ -29,15 +29,15 @@ return array(
 	),
 
     'pusher' => array(
-        'app_id' => '',
-        'app_key' => '',
-        'app_secret' => ''
+        'app_id' => getenv('PUSHER_APP_ID'),
+        'app_key' => getenv('PUSHER_APP_KEY'),
+        'app_secret' => getenv('PUSHER_APP_SECRET')
     ),
 
     'spotify' => array(
-        'client_id' => '',
-        'client_secret' => '',
-        'callback_url' => Request::root().'/auth/spotify-callback'
+        'client_id' => getenv('SPOTIFY_CLIENT_ID'),
+        'client_secret' => getenv('SPOTIFY_CLIENT_SECRET'),
+        'callback_url' => Request::root().getenv('SPOTIFY_CALLBACK_URL')
     ),
 
 );

@@ -49,11 +49,22 @@ class AuthController extends BaseController {
 
         $user = $api->me();
 
+        try{
+            $userImage = $user->images[0]->url;
+        }catch (Exception $e){
+            $userImage = 'http://tapmusic.mykebates.com/images/pied.png';
+        }
+
         Session::put('accessToken', $accessToken);
         Session::put('refreshToken', $refreshToken);
         Session::put('userID', $user->id);
         Session::put('userName', $user->display_name);
-        Session::put('userImage', $user->images[0]->url);
+        Session::put('userImage', $userImage);
+
+        if(!Session::get('userOnlineID')){
+            $onlineUser = $this->reportOnlineUser($user->id);
+            Session::put('userOnlineID', $onlineUser);
+        }
 
 
         return Redirect::to('/');
@@ -86,10 +97,33 @@ class AuthController extends BaseController {
             Config::get('services.pusher.app_id')
         );
 
+        try {
+            $userImage = $user->images[0]->url;
+        } catch (Exception $e) {
+            $userImage = 'http://tapmusic.mykebates.com/images/pied.png';
+        }
+
+        if(Session::get('userID')){
+            $onlineUser = $this->reportOnlineUser(Session::get('userID'));
+
+            // I think this deserves to be set again, as opposed to letting
+            // the user use their previous sessions onlineID if it still exsits
+            // but right now this also lets the user round robin their previous
+            // entries plus any new ones they add in
+            // The opposite inverse. though, would be someone who hasn't been in for a while
+            // Their songs could, in theory cut right to the top of the queue even though they
+            // might technically be way further down the line
+
+            // I think the solve is to either kill their music in the queue all together..
+            // Or to keep the data but remove it from the queue.
+            Session::put('userOnlineID', $onlineUser);
+        }
+
         $presence_data = array(
             'id' => $userName,
             'name' => $user->display_name,
-            'image' => $user->images[0]->url
+            'image' => $userImage,
+            'onlineID' => Session::get('userOnlineID', 'shouldBeSomething')
         );
 
         return $pusher->presence_auth(
@@ -113,5 +147,16 @@ class AuthController extends BaseController {
         //return Config::get('services.spotify.callbackUrl');
 
         //dd(Session::get('userImage'));
+    }
+
+    public function reportOnlineUser($userID)
+    {
+        $removedUser = OnlineUser::where('userID', '=', $userID)->delete();
+
+        $onlineUser = new OnlineUser();
+        $onlineUser->userID = $userID;
+        $onlineUser->save();
+
+        return $onlineUser->id;
     }
 }

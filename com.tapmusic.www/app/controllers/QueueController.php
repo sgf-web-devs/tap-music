@@ -35,6 +35,7 @@ class QueueController extends BaseController
         $song->userID = Session::get('userID');
         $song->userName = Session::get('userName');
         $song->userImage = Session::get('userImage');
+        $song->userOnlineID = Session::get('userOnlineID');
         $song->broadcasting = false;
         if($songCount == 0){
             $song->broadcasting = true;
@@ -182,6 +183,13 @@ class QueueController extends BaseController
         $pusher->trigger(Config::get('settings.playerChannel'), 'song-play', $data);
 
         return 'spotify:track:' . $nextSong->spotifyURL;
+    }
+
+    public function getRefreshRobin()
+    {
+        $this->getGenerateRoundRobinOrder();
+
+        return Redirect::to('/');
     }
 
     public function getGenerateRoundRobinOrder()

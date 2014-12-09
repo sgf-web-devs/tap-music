@@ -27,6 +27,14 @@
             console.log(channel.members.members);
             //console.log(_.toArray(channel.members.members));
 
+            // Set user in online_users table
+            //$http.get('/pusher/subscription-succeeded', { params: { userID : me.id } }).
+            //    success(function(data, status, headers, config) {
+            //        console.log(data);
+            //    }).
+            //    error(function(data, status, headers, config) {}
+            //);
+
             if(channel.members.count == 1)
             {
                 $http.get('/queue/play-first-song').
@@ -36,6 +44,16 @@
                     error(function(data, status, headers, config) {}
                 );
             }
+        });
+
+        channel.bind('pusher:member_removed', function(member) {
+            console.log(member);
+            $http.get('/pusher/member-removed', { params: { userID : member.id } }).
+                success(function(data, status, headers, config) {
+                    console.log(data);
+                }).
+                error(function(data, status, headers, config) {}
+            );
         });
 
         channel.bind('pusher:member_added', function (member) {

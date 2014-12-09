@@ -23,6 +23,7 @@ Route::get('/', function()
 
 Route::post('auth', 'HomeController@Auth');
 Route::controller('player', 'PlayerController');
+Route::controller('pusher', 'PusherController');
 Route::controller('queue', 'QueueController');
 Route::controller('spotify', 'SpotifyController');
 Route::controller('auth', 'AuthController');

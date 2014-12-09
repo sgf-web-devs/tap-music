@@ -11,7 +11,7 @@ return array(
     |
     */
 
-    'roundRobinQuery' => 'select id, spotifyURL, trackName, artistName, albumArt, userID, userName, userImage, broadcasting from (select songs.*, @rn := if(userID != @ng, 1, @rn + 1) as ng, @ng := userID from songs, (select @rn:=0, @ng:=null) v order by userID, id ) sq where broadcasting = FALSE order by ng, id, userID',
+    'roundRobinQuery' => 'select id, spotifyURL, trackName, artistName, albumArt, userID, userName, userImage, broadcasting, userOnlineID from (select songs.*, @rn := if(userID != @ng, 1, @rn + 1) as ng, @ng := userID from songs, (select @rn:=0, @ng:=null) v order by userID, id ) sq where broadcasting = FALSE order by ng, userOnlineID',
 
 
     /*
@@ -35,7 +35,7 @@ return array(
     |
     */
 
-    'presenceChannel' => 'presence-tapmusic1',
+    'presenceChannel' => getenv('PRESENCE_CHANNEL'),
 
 
     /*
@@ -47,6 +47,6 @@ return array(
     |
     */
 
-    'playerChannel' => 'tapmusic_channel'
+    'playerChannel' => getenv('PRESENCE_CHANNEL')
 
 );

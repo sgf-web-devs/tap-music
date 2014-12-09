@@ -1,8 +1,12 @@
 ## TAP Music
 
+This is the repo for the web interface to TAP Music.  If you are looking for the player it is at
+https://github.com/sgf-web-devs/tap-music-player
+
 Official documentation to come once we get this somewhat cleaned up.
 
-For now just make sure to address the following
+You will need to have a Spotify Developer Account and keys to Spotify Web API
+https://developer.spotify.com/
 
 - Create a .env.local.php or .env.php (for production) and fill with your setup's details
 ```php
@@ -30,4 +34,4 @@ return [
 ```
 - Run composer install
 - Run php artisan migrate
-- Make sure your root url and /auth/spotify-callback are registered under Spotify's developer area as redirect URLs
+- Make sure your root url and http://youdomain.com/auth/spotify-callback(or whatever URL you choose to register in config above) are registered under Spotify's developer area as redirect URLs

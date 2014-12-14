@@ -15,7 +15,6 @@ html{
 body{
   background:#000000;
   height:100%;
-  padding: 2em;
   font-family: $font-stack;
 }
 
@@ -29,6 +28,7 @@ body{
   flex-flow: row wrap;
   font-weight: bold;
   text-align: center;
+  padding: 2em;
 }
 
 .wrapper > * {
@@ -56,19 +56,25 @@ body{
 .now-playing {
   text-align: center;
   background: $dark-gray;
-  min-width:500px;
+
+  width: 500px;
   height:800px;
+
   padding:0 0 40px 0;
+
   img{
-  width:100%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
   }
+
   .current-song-user{
     float:left;
     width:55px;
     border-radius:3px;
     padding:10px 8px 0 0;
   }
+
   h5{
     color:$grayish;
     font-size:12px;
@@ -104,7 +110,7 @@ body{
 
 .aside-1 {
   background: $dark-gray;
-  min-width:180px;
+  width:180px;
   text-align: left;
   height:800px;
 
@@ -244,7 +250,7 @@ h1{
 
 .aside-2 {
   background: $dark-gray;
-  min-width:300px;
+  width:300px;
   height:800px;
   overflow: scroll;
   text-align: left;

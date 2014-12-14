@@ -189,7 +189,6 @@
 
         function updatePageTitle (track) {
             var newTitle = '';
-            console.log(track);
             if (typeof track !== 'undefined') {
                 newTitle = track.trackName + ' - ' + track.artistName + ' | ' + defaultAppTitle;
                 $appTitle.html(newTitle);

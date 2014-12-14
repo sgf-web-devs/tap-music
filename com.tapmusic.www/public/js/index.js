@@ -189,9 +189,9 @@
 
         function updatePageTitle (track) {
             var newTitle = '';
-
+            console.log(track);
             if (typeof track !== 'undefined') {
-                track.trackName + ' - ' + track.artistName + ' | ' + defaultAppTitle;
+                newTitle = track.trackName + ' - ' + track.artistName + ' | ' + defaultAppTitle;
                 $appTitle.html(newTitle);
             }
         }

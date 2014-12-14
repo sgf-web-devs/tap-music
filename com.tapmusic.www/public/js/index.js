@@ -187,6 +187,15 @@
 
         });
 
+        function updatePageTitle (track) {
+            var newTitle = '';
+
+            if (typeof track !== 'undefined') {
+                track.trackName + ' - ' + track.artistName + ' | ' + defaultAppTitle;
+                $appTitle.html(newTitle);
+            }
+        }
+
         function searchTracks(searchPhrase)
         {
             $http.get('/spotify/search', { params: { search: searchPhrase } }).
@@ -218,8 +227,7 @@
 
         function updateNowPlaying(track)
         {
-            var newTitle = track.trackName + ' - ' + track.artistName + ' | ' + defaultAppTitle;
-            $appTitle.html(newTitle);
+            updatePageTitle(track);
             $scope.currentTrack = track;
         }
 

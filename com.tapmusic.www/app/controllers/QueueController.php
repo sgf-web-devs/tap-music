@@ -37,6 +37,7 @@ class QueueController extends BaseController
         $song->userImage = Session::get('userImage');
         $song->userOnlineID = Session::get('userOnlineID');
         $song->broadcasting = false;
+        $song->duration = $trackData->duration_ms;
         if($songCount == 0){
             $song->broadcasting = true;
             $song->order = 1;

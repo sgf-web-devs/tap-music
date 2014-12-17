@@ -7,8 +7,8 @@
     tapmusicApp.controller('TapMusicCtrl', function ($scope, $http) {
 
         var $appTitle = $('#app-title'),
-            pusher = new Pusher('bb58ca596665e104e52a', {authEndpoint: '/auth/login'}),
-            channel = pusher.subscribe('presence-tapmusic1'),
+            pusher = new Pusher('7302a20e52fbe6c7fab0', {authEndpoint: '/auth/login'}),
+            channel = pusher.subscribe('presence-tapmusicfredtest'),
             defaultAppTitle = $appTitle.html();
 
         $scope.currentTrack = {

@@ -13,6 +13,12 @@
         </header>
         <div ng-if="currentTrack.albumArt" class="now-playing">
             <img ng-src="{{ currentTrack.albumArt }}">
+            <div class="progress">
+                <span class="time">1:30 / 3:00</span>
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                </div>
+            </div>
+            <div style="clear:both"></div>
             <h5>NOW PLAYING</h5>
             <img class="current-song-user" ng-src="{{ currentTrack.userImage }}" title="{{ currentTrack.userName }}" />
             <div class="now-playing-title">{{ currentTrack.trackName }}</div>

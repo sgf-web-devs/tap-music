@@ -3443,7 +3443,9 @@ body {
     text-align: left; }
 
 .progress {
-  position: relative; }
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  background-image: none; }
   .progress .time {
     line-height: 20px;
     font-size: 12px;
@@ -3453,6 +3455,7 @@ body {
     z-index: 1000;
     position: absolute;
     left: 50%;
+    color: #fff;
     -ms-transform: translateX(-50%);
     /* IE 9 */
     -webkit-transform: translateX(-50%);
@@ -3462,7 +3465,9 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 900; }
+    z-index: 900;
+    background-image: none;
+    background-color: rgba(255, 255, 255, 0.2); }
 
 .now-playing-title {
   color: #C8CCD8;

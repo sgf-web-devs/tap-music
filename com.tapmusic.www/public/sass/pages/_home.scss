@@ -85,6 +85,7 @@ body{
 }
 
 .progress {
+  position: relative;
 
   .time {
     line-height: 20px;
@@ -92,6 +93,20 @@ body{
     height: auto;
     margin: 0 auto;
     display: block;
+    z-index: 1000;
+    position: absolute;
+    left: 50%;
+
+    -ms-transform: translateX(-50%); /* IE 9 */
+    -webkit-transform: translateX(-50%); /* Chrome, Safari, Opera */
+    transform: translateX(-50%);
+  }
+
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
   }
 
 }

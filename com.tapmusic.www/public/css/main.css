@@ -3442,12 +3442,27 @@ body {
     margin: 15px 0 20px 0;
     text-align: left; }
 
-.progress .time {
-  line-height: 20px;
-  font-size: 12px;
-  height: auto;
-  margin: 0 auto;
-  display: block; }
+.progress {
+  position: relative; }
+  .progress .time {
+    line-height: 20px;
+    font-size: 12px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    z-index: 1000;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    /* IE 9 */
+    -webkit-transform: translateX(-50%);
+    /* Chrome, Safari, Opera */
+    transform: translateX(-50%); }
+  .progress .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900; }
 
 .now-playing-title {
   color: #C8CCD8;

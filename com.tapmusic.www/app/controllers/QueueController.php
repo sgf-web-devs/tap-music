@@ -94,6 +94,9 @@ class QueueController extends BaseController
             return 'spotify:track:' . Config::get('settings.defaultTrack'); // This here lifestyle
         }
 
+        $firstSong->start_time = time();
+        $firstSong->save();
+
         $app_id = Config::get('services.pusher.app_id');
         $app_key = Config::get('services.pusher.app_key');
         $app_secret = Config::get('services.pusher.app_secret');
@@ -138,6 +141,7 @@ class QueueController extends BaseController
             ->update(array('broadcasting' => false));
 
         $nextSong->broadcasting = true;
+        $nextSong->start_time = time();
         $nextSong->save();
 
         $pusher->trigger(Config::get('settings.presenceChannel'), 'nextSong', '');
@@ -178,6 +182,7 @@ class QueueController extends BaseController
             ->update(array('broadcasting' => false));
 
         $nextSong->broadcasting = true;
+        $nextSong->start_time = time();
         $nextSong->save();
 
         $pusher->trigger(Config::get('settings.presenceChannel'), 'nextSong', '');

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <audio id="tap_stream" src="http://173.236.19.90:8027/stream1" autoplay></audio>
+    [[--<audio id="tap_stream" src="http://173.236.19.90:8027/stream1" autoplay></audio>--]]
     <audio id="preview" src=""></audio>
     [[--<audio src="http://192.168.12.132:8000/stream1" autoplay></audio>--]]
 
@@ -14,8 +14,11 @@
         <div ng-if="currentTrack.albumArt" class="now-playing">
             <img ng-src="{{ currentTrack.albumArt }}">
             <div class="progress">
-                <span class="time">1:30 / 3:00</span>
+                <span class="time">
+                    <span class="elapsed">1:30</span> / <span class="duration">{{ currentTrack.song_duration }}</span>
+                </span>
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
                 </div>
             </div>
             <div style="clear:both"></div>
@@ -103,6 +106,6 @@
     </div>
 @stop
 
-@section('header')
+@section('footer')
     <script src="js/index.js"></script>
 @stop

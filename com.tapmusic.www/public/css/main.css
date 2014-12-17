@@ -3442,6 +3442,13 @@ body {
     margin: 15px 0 20px 0;
     text-align: left; }
 
+.progress .time {
+  line-height: 20px;
+  font-size: 12px;
+  height: auto;
+  margin: 0 auto;
+  display: block; }
+
 .now-playing-title {
   color: #C8CCD8;
   font-size: 50px;

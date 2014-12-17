@@ -84,6 +84,18 @@ body{
   }
 }
 
+.progress {
+
+  .time {
+    line-height: 20px;
+    font-size: 12px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+}
+
 .now-playing-title{
   color:$light-gray;
   font-size:50px;

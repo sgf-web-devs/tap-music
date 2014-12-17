@@ -47,6 +47,6 @@ return array(
     |
     */
 
-    'playerChannel' => getenv('PRESENCE_CHANNEL')
+    'playerChannel' => getenv('PLAYER_CHANNEL')
 
 );

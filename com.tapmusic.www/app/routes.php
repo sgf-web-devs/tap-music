@@ -13,10 +13,17 @@
 
 Route::get('/', function()
 {
-	if(!Session::get('userID'))
-    {
+	if (!Session::get('userID')) {
         return Redirect::to('/auth');
     }
+
+    JavaScript::put([
+        'pusherConf' => [
+            'presenceChannel' => Config::get('settings.presenceChannel'),
+            'playerChannel' => Config::get('settings.playerChannel'),
+            'publicKey' => Config::get('services.pusher.app_key')
+        ]
+    ]);
 
     return View::make('home.index');
 });

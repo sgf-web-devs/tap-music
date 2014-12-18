@@ -36,6 +36,10 @@ return [
     'SPOTIFY_CLIENT_SECRET' => '1234',
 
     'SPOTIFY_CALLBACK_URL' => '/auth/spotify-callback',
+    
+    'PLAYER_STREAM_URL' => 'http://server/stream',
+    
+    'PLAYER_STREAM_DISABLE' => false
 ];
 ```
 - Run composer install

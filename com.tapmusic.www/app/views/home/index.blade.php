@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if (Config::get('settings.playerStreamUrl') && !Config::get('settings.playerStreamDisable')))
+    @if (Config::get('settings.playerStreamUrl') && !Config::get('settings.playerStreamDisable'))
         <audio id="tap_stream" src="[[ Config::get('settings.playerStreamUrl') ]]" autoplay></audio>
     @endif
     <audio id="preview" src=""></audio>

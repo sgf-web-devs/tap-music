@@ -15,10 +15,10 @@
             <img ng-src="{{ currentTrack.albumArt }}">
             <div class="progress">
                 <span class="time">
-                    <span class="elapsed">1:30</span> / <span class="duration">{{ currentTrack.song_duration }}</span>
+                    <span class="elapsed">{{ currentTrack.elapse }}</span> / <span class="duration">{{ currentTrack.duration }}</span>
                 </span>
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                    <span class="sr-only">60% Complete</span>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    <span class="sr-only">00% Complete</span>
                 </div>
             </div>
             <div style="clear:both"></div>

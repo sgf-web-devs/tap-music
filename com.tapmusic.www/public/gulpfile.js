@@ -4,12 +4,13 @@ var gulp = require('gulp'),
 	watch = require('gulp-watch'),
 	plumber = require('gulp-plumber'),
     browserify = require('browserify'),
+    run = require('gulp-run'),
     source = require('vinyl-source-stream');
 
 gulp.task('css', function() {
     gulp.src('./sass/main.scss')
     .pipe(shell([
-      'sassc <%= file.path %> css/main.css -t nested -m'
+        'sassc sass/main.scss css/main.css -t nested -m'
     ])).on('error', function(){
         console.log('turn down for what!');
     })

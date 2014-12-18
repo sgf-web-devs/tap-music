@@ -6,6 +6,9 @@
     "gulp-plumber": "^0.6.3",
     "gulp-shell": "^0.2.8",
     "gulp-watch": "^0.6.8",
-    "vinyl-source-stream": "^0.1.1"
+    "vinyl-source-stream": "^0.1.1",
+    "gulp-sass": "^1.2.4",
+    "gulp-sourcemaps": "^1.2.8",
+    "gulp-run": "~1.6.4"
   }
 }

@@ -4,6 +4,7 @@ $light-gray: #C8CCD8;
 $grayish:    #81848E;
 $medium-gray:#5A5C62;
 $dark-gray:  #27282B;
+$charcoal:  #222326;
 $gray-next: #353639;
 $primary: #000000;
 
@@ -32,9 +33,13 @@ body{
 }
 
 .wrapper > * {
-  padding: 10px;
-  flex: 1 100%;
+//  padding: 10px;
+//  flex: 1 100%;
   background-color: #000000;
+}
+
+.wrapper{
+  padding: 0;
 }
 
 .header {
@@ -53,32 +58,38 @@ body{
 
 }
 
+.now_playing_deets{
+  padding: 0 20px;
+}
+
 .now-playing {
   text-align: center;
-  background: $dark-gray;
+  background: $charcoal;
 
-  width: 500px;
-  height:800px;
+//  width: 500px;
+//  height:800px;
 
-  padding:0 0 40px 0;
+  //padding:0 0 40px 0;
 
   img{
     width: 100%;
-    max-width: 100%;
-    height: auto;
   }
 
   .current-song-user{
-    float:left;
-    width:55px;
-    border-radius:3px;
-    padding:10px 8px 0 0;
+    margin-top: 1em;
+    //float:left;
+    text-align: left;
+    img{
+      width:55px;
+      border-radius:3px;
+    }
+    //padding:10px 8px 0 0;
   }
 
   h5{
     color:$grayish;
     font-size:12px;
-    padding: 0 0 0 15px;
+    //padding: 0 0 0 15px;
     margin:15px 0 20px 0;
     text-align: left;
   }
@@ -87,8 +98,10 @@ body{
 .progress {
   position: relative;
 
-  background-color: rgba(255,255,255,0.1);
+  background-color: $charcoal;
   background-image: none;
+  height: 9px;
+  border-radius: 0;
 
   .time {
     line-height: 20px;
@@ -105,6 +118,7 @@ body{
     -ms-transform: translateX(-50%); /* IE 9 */
     -webkit-transform: translateX(-50%); /* Chrome, Safari, Opera */
     transform: translateX(-50%);
+    display: none;
   }
 
   .progress-bar {
@@ -113,7 +127,7 @@ body{
     left: 0;
     z-index: 900;
     background-image: none;
-    background-color: rgba(255,255,255,0.2);
+    background-color: $tap-orange;
   }
 
 }
@@ -124,7 +138,7 @@ body{
   font-family: $font-stack;
   font-weight: 300;
   text-align: left;
-  padding: 0 0 0 25px;
+  //padding: 0 25px 0 25px;
 }
 
 .now-playing-artist{
@@ -133,7 +147,7 @@ body{
   font-family: $font-stack;
   font-weight: 600;
   text-align: left;
-  padding: 0 0 0 25px;
+  //padding: 0 0 0 25px;
   span{
     color:$grayish;
     font-size:14px;
@@ -142,11 +156,11 @@ body{
   }
 }
 
-.aside-1 {
+.side_queue {
   background: $dark-gray;
   width:180px;
   text-align: left;
-  height:800px;
+  //height:800px;
 
   h5{
     color:$grayish;
@@ -156,8 +170,9 @@ body{
 
 
 .the-queue{
-  height: 475px;
-  overflow: scroll;
+  max-height: 70vh;
+  //min-height: ;
+  overflow: auto;
 }
 
 .playing-next{
@@ -211,7 +226,7 @@ h1{
     font-size: 26px;
     color:$medium-gray;
     margin:0;
-    padding:0;
+    padding:0 20px 0 0;
   }
   h5{
     font-family: $font-stack;
@@ -227,7 +242,7 @@ h1{
     padding:0;
   }
   li{
-    margin:15px 0;
+    margin:15px 0; padding: 0 20px;
     list-style:none;
   }
 
@@ -266,15 +281,19 @@ h1{
 }
 
 .whos-online{
+  //border-top: 1px solid #000;
+  //border-bottom: 1px solid #000;
   margin: 25px 0 0 0;
-  height:200px;
-  overflow: scroll;
+  padding: 0 20px;
+  //height:200px;
+  //overflow: scroll;
   ul{
     display:table-row;
   }
   li{
     display: table-cell;
     padding:10px;
+    &:first-child{ padding-left: 0; }
   }
   img{
     width:55px;
@@ -282,11 +301,12 @@ h1{
   }
 }
 
-.aside-2 {
+.side_search {
   background: $dark-gray;
   width:300px;
-  height:800px;
-  overflow: scroll;
+  //height:800px;
+  //overflow: scroll;
+  overflow-y: auto;
   text-align: left;
   h5{
     color:$tap-orange;
@@ -360,11 +380,11 @@ h1{
 }
 
 @media all and (min-width: 800px) {
-  .now-playing    { flex: 3 0px; }
-  .aside-1 { order: 1; }
-  .now-playing    { order: 2; }
-  .aside-2 { order: 3; }
-  .footer  { order: 4; }
+//  .now-playing    { flex: 3 0px; }
+//  .aside-1 { order: 1; }
+//  .now-playing    { order: 2; }
+//  .aside-2 { order: 3; }
+//  .footer  { order: 4; }
 }
 
 .spotify_search
@@ -403,4 +423,20 @@ h1{
 /**
  * Call the damn thing
  */
-@include scrollbar(.5em, $grayish);
+//@include scrollbar(.5em, $grayish);
+
+
+
+
+//Let's fix this flexbox shizzle.
+body{ display: flex; height: 100vh; flex-direction: column; }
+
+.flex_wrap{ display: flex; flex: 1; height: 100vh; padding-top: 0; padding-bottom: 0; }
+
+.now-playing{ flex: 1; overflow: hidden; }
+
+.side_queue, .side_search{ flex: 0 0 32.5%; }
+
+.side_queue{  order: -1; }
+
+.side_search{ padding: 20px; }

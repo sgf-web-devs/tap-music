@@ -47,6 +47,18 @@ return array(
     |
     */
 
-    'playerChannel' => getenv('PLAYER_CHANNEL')
+    'playerChannel' => getenv('PLAYER_CHANNEL'),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stream URL
+    |--------------------------------------------------------------------------
+    |
+    | Stream URL to attach audio tag to.  If this is omitted the audio tag will not render
+    |
+    */
+
+    'playerStreamUrl' => getenv('PLAYER_STREAM_URL')
 
 );

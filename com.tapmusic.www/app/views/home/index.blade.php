@@ -2,9 +2,10 @@
 
 @section('content')
 
-    [[--<audio id="tap_stream" src="http://173.236.19.90:8027/stream1" autoplay></audio>--]]
+    @if (Config::get('settings.playerStreamUrl')))
+        <audio id="tap_stream" src="[[ Config::get('settings.playerStreamUrl') ]]" autoplay></audio>
+    @endif
     <audio id="preview" src=""></audio>
-    [[--<audio src="http://192.168.12.132:8000/stream1" autoplay></audio>--]]
 
     <div class="wrapper" ng-controller="TapMusicCtrl">
         <header class="header">

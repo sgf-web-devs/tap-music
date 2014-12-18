@@ -59,6 +59,18 @@ return array(
     |
     */
 
-    'playerStreamUrl' => getenv('PLAYER_STREAM_URL')
+    'playerStreamUrl' => getenv('PLAYER_STREAM_URL'),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Stream Disable
+    |--------------------------------------------------------------------------
+    |
+    | Great for working in development
+    |
+    */
+
+    'playerStreamDisable' => getenv('PLAYER_STREAM_DISABLE') || false
 
 );

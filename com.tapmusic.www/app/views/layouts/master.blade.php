@@ -30,5 +30,8 @@
 
 @include('layouts.partials.footer')
 
+@yield('footer')
+
+
 </body>
 </html>

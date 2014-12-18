@@ -84,6 +84,40 @@ body{
   }
 }
 
+.progress {
+  position: relative;
+
+  background-color: rgba(255,255,255,0.1);
+  background-image: none;
+
+  .time {
+    line-height: 20px;
+    font-size: 12px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    z-index: 1000;
+    position: absolute;
+    left: 50%;
+
+    color: #fff;
+
+    -ms-transform: translateX(-50%); /* IE 9 */
+    -webkit-transform: translateX(-50%); /* Chrome, Safari, Opera */
+    transform: translateX(-50%);
+  }
+
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    background-image: none;
+    background-color: rgba(255,255,255,0.2);
+  }
+
+}
+
 .now-playing-title{
   color:$light-gray;
   font-size:50px;

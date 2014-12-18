@@ -1,15 +1,15 @@
 // Requires... nothing here yet :)
 //var dropdown = require('./dropdown');
 
-
     var tapmusicApp = angular.module('tapmusicApp', []);
 
     tapmusicApp.controller('TapMusicCtrl', function ($scope, $http) {
 
-        var $appTitle = $('#app-title'),
+        var $appTitle = jQuery('#app-title'),
             pusher = new Pusher('bb58ca596665e104e52a', {authEndpoint: '/auth/login'}),
             channel = pusher.subscribe('presence-tapmusic1'),
-            defaultAppTitle = $appTitle.html();
+            defaultAppTitle = $appTitle.html(),
+            interval;
 
         $scope.currentTrack = {
             trackName: '',
@@ -46,6 +46,7 @@
                     error(function(data, status, headers, config) {}
                 );
             }
+
         });
 
         channel.bind('pusher:member_removed', function(member) {
@@ -84,9 +85,9 @@
             updateQueue();
         });
 
-        $scope.queueTracks = [];
-
         updateQueue();
+
+        $scope.queueTracks = [];
 
         jQuery(function ($) {
             var options = {
@@ -122,6 +123,10 @@
                     });
                     return false;
 
+            });
+
+            $(window).on('load', function () {
+                updateProgressBar();
             });
 
 
@@ -187,6 +192,55 @@
 
         });
 
+        function formatTimeMS (ms) {
+            var time = new Date(ms),
+                format = time.getUTCMinutes() + ":" + time.getUTCSeconds();
+            return format;
+        }
+
+        function formatTimeSeconds (seconds) {
+            var ms,
+                time,
+                format;
+
+            ms = seconds * 1000;
+            time = new Date(ms);
+            format = time.getUTCMinutes() + ":" + time.getUTCSeconds();
+
+            return format;
+        }
+
+        function updateProgressBar () {
+
+            console.log('update progress');
+
+            var track = $scope.currentTrack,
+                start_time = track.start_time,
+                duration = formatTimeMS(track.duration),
+                $progressBar = jQuery('.progress .progress-bar'),
+                $progressTime = jQuery('.progress .elapsed'),
+                $duration = jQuery('.progress .duration');
+
+            $duration.html(duration);
+
+            if (typeof interval != 'undefined')
+                clearInterval(interval);
+
+            interval = setInterval(function () {
+                var time_since,
+                    now = (new Date().getTime()) / 1000,
+                    percent;
+
+                time_since = now - start_time;
+                percent = (time_since / (track.duration / 1000)) * 100;
+                time_since = formatTimeSeconds(time_since);
+
+                $progressTime.html(time_since);
+                $progressBar.css('width', percent + '%').attr('aria-valuenow', percent);
+
+            }, 1000);
+        }
+
         function updatePageTitle (track) {
             var newTitle = '';
             if (typeof track !== 'undefined') {
@@ -214,7 +268,7 @@
         {
             $http.get('/queue/songs').
                 success(function(data, status, headers, config) {
-                    console.log(data);
+                    console.log('Queue Updated', data);
                     $scope.queueTracks = _.rest(data, 1);
                     updateNowPlaying(_.first(data));
                 }).
@@ -226,8 +280,10 @@
 
         function updateNowPlaying(track)
         {
-            updatePageTitle(track);
+            console.log('Now Playing', track);
             $scope.currentTrack = track;
+            updatePageTitle(track);
+            updateProgressBar();
         }
 
         function addSongToQueue(songID)

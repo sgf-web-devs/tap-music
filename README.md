@@ -39,7 +39,9 @@ return [
     
     'PLAYER_STREAM_URL' => 'http://server/stream',
     
-    'PLAYER_STREAM_DISABLE' => false
+    'PLAYER_STREAM_DISABLE' => false,
+    
+    'SLACK_NOTIFICATION_DISABLE' => true
 ];
 ```
 - Run composer install

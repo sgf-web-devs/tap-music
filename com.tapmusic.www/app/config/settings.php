@@ -71,6 +71,40 @@ return array(
     |
     */
 
-    'playerStreamDisable' => getenv('PLAYER_STREAM_DISABLE') || false
+    'playerStreamDisable' => getenv('PLAYER_STREAM_DISABLE') || false,
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Slack Notifications
+    |--------------------------------------------------------------------------
+    |
+    | Notify Slack channels of what songs are playing
+    | NOTE: Arrays seem to have an issue using the env.php file....
+    | So for now this setting needs to placed in a config/local/settings.php file
+    | Or you can edit here if you are not actively developing on the main repo
+    | Format like so...
+    'slackChannels' => [
+        [
+            'API_PATH' => 'https://alchemedia.slack.com/services/hooks/slackbot?token=nothingtoseehere',
+            'CHANNEL_NAME' => 'tap-music'
+        ]
+    ]
+    |
+    */
+
+    'slackChannels' => '',
+
+
+        /*
+    |--------------------------------------------------------------------------
+    | Slack Notifications Disable
+    |--------------------------------------------------------------------------
+    |
+    | Great for working in development
+    |
+    */
+
+    'slackNotificationDisable' => getenv('SLACK_NOTIFICATION_DISABLE') || false
 
 );

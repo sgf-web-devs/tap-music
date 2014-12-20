@@ -146,6 +146,8 @@ class QueueController extends BaseController
 
         $pusher->trigger(Config::get('settings.presenceChannel'), 'nextSong', '');
 
+        $this->notifySlack($nextSong);
+
         return 'spotify:track:' . $nextSong->spotifyURL;
     }
 
@@ -188,6 +190,8 @@ class QueueController extends BaseController
         $pusher->trigger(Config::get('settings.presenceChannel'), 'nextSong', '');
         $pusher->trigger(Config::get('settings.playerChannel'), 'song-play', $data);
 
+        $this->notifySlack($nextSong);
+
         return 'spotify:track:' . $nextSong->spotifyURL;
     }
 
@@ -215,6 +219,23 @@ class QueueController extends BaseController
         }
 
         return 'success';
+    }
+
+    public function notifySlack($song)
+    {
+        if (Config::get('settings.slackChannels') && !Config::get('settings.slackNotificationDisable')) {
+            $client = new GuzzleHttp\Client();
+
+            $userName = $song->userName ?: 'Somebody';
+            $messageBody = "$userName is now playing: $song->trackName by $song->artistName " . Request::root();
+
+            foreach (Config::get('settings.slackChannels') as $channel) {
+                $client->post($channel['API_PATH'] . '&channel=%23' . $channel['CHANNEL_NAME'], [
+                    'body' => $messageBody,
+                    'allow_redirects' => true
+                ]);
+            }
+        }
     }
 
 }

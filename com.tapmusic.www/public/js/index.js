@@ -18,9 +18,9 @@
         };
 
         $scope.progressData = {
-            percent: '0',
-            time_since: '0',
-            duration: '0'
+            percent: 0,
+            time_since: 0,
+            duration: 0
         };
 
         $scope.onlineUsers = [];
@@ -216,9 +216,20 @@
                 return;
 
             progressInterval = $interval(function(){
-                 var time_since,
+                var time_since,
                     now = (new Date().getTime()) / 1000,
                     percent;
+
+                // Reset counter if song is last song in queue
+                if ($scope.progressData.percent >= 100) {
+                    $scope.progressData = {
+                        percent: 0,
+                        time_since: 0,
+                        duration: 0
+                    };
+
+                    start_time = now;
+                }
 
                 time_since = now - start_time;
                 percent = (time_since / duration) * 100;

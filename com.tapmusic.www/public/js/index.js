@@ -3,18 +3,24 @@
 
     var tapmusicApp = angular.module('tapmusicApp', []);
 
-    tapmusicApp.controller('TapMusicCtrl', function ($scope, $http) {
+    tapmusicApp.controller('TapMusicCtrl', function ($scope, $http, $interval) {
 
         var $appTitle = jQuery('#app-title'),
-            pusher = new Pusher('bb58ca596665e104e52a', {authEndpoint: '/auth/login'}),
-            channel = pusher.subscribe('presence-tapmusic1'),
+            pusher = new Pusher(pusherConf.publicKey, {authEndpoint: '/auth/login'}),
+            channel = pusher.subscribe(pusherConf.presenceChannel),
             defaultAppTitle = $appTitle.html(),
-            interval;
+            progressInterval;
 
         $scope.currentTrack = {
             trackName: '',
             artistName: '',
             albumArt: ''
+        };
+
+        $scope.progressData = {
+            percent: '0',
+            time_since: '0',
+            duration: '0'
         };
 
         $scope.onlineUsers = [];
@@ -125,11 +131,6 @@
 
             });
 
-            $(window).on('load', function () {
-                updateProgressBar();
-            });
-
-
             $('body').on('click', '.songIWantToPreview',function(){
 
                 var current = $(this);
@@ -192,23 +193,16 @@
 
         });
 
-        function formatTimeMS (ms) {
-            var time = new Date(ms),
-                format = time.getUTCMinutes() + ":" + time.getUTCSeconds();
-            return format;
-        }
+        $scope.stopProgressInterval = function() {
+            if (angular.isDefined(progressInterval)) {
+                $interval.cancel(progressInterval);
+                progressInterval = undefined;
+            }
+        };
 
-        function formatTimeSeconds (seconds) {
-            var ms,
-                time,
-                format;
-
-            ms = seconds * 1000;
-            time = new Date(ms);
-            format = time.getUTCMinutes() + ":" + time.getUTCSeconds();
-
-            return format;
-        }
+        $scope.$on('$destroy', function() {
+            $scope.stopProgressInterval();
+        });
 
         function updateProgressBar () {
 
@@ -216,27 +210,24 @@
 
             var track = $scope.currentTrack,
                 start_time = track.start_time,
-                duration = formatTimeMS(track.duration),
-                $progressBar = jQuery('.progress .progress-bar'),
-                $progressTime = jQuery('.progress .elapsed'),
-                $duration = jQuery('.progress .duration');
+                duration = track.duration / 1000;
 
-            $duration.html(duration);
+            if (angular.isDefined(progressInterval))
+                return;
 
-            if (typeof interval != 'undefined')
-                clearInterval(interval);
-
-            interval = setInterval(function () {
-                var time_since,
+            progressInterval = $interval(function(){
+                 var time_since,
                     now = (new Date().getTime()) / 1000,
                     percent;
 
                 time_since = now - start_time;
-                percent = (time_since / (track.duration / 1000)) * 100;
-                time_since = formatTimeSeconds(time_since);
+                percent = (time_since / duration) * 100;
 
-                $progressTime.html(time_since);
-                $progressBar.css('width', percent + '%').attr('aria-valuenow', percent);
+                $scope.progressData = {
+                    percent: percent,
+                    time_since: time_since,
+                    duration: duration
+                };
 
             }, 1000);
         }
@@ -297,5 +288,32 @@
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
+        }
+    });
+
+    tapmusicApp.directive('progressBar', function ($parse, $window) {
+        return {
+            restrict: 'EA',
+            template: '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>',
+            link: function (scope, elem, attrs) {
+                var progressBarData = $parse(attrs.progressData)(scope),
+                    progressBar = jQuery(elem[0].children[0]);
+
+                scope.$watchCollection('progressData', function(newData, oldData){
+                    progressBarData = newData;
+                    draw();
+                });
+
+                function draw () {
+                    progressBar.attr('aria-valuenow', progressBarData.percent);
+                    progressBar.css('width', progressBarData.percent + '%');
+                }
+
+                draw();
+
+                elem.on('$destroy', function() {
+                    $interval.cancel(progressInterval);
+                });
+            }
         }
     });

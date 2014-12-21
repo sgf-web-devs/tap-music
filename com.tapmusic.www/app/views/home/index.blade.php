@@ -17,13 +17,8 @@
         <div class="flex_wrap">
             <div ng-if="currentTrack.albumArt" class="now-playing">
                 <img ng-src="{{ currentTrack.albumArt }}">
-                <div class="progress">
-                <span class="time">
-                    <span class="elapsed">{{ currentTrack.elapse }}</span> / <span class="duration">{{ currentTrack.duration }}</span>
-                </span>
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                        <span class="sr-only">00% Complete</span>
-                    </div>
+                <div class="progress" progress-bar progress-data="progressData">
+
                 </div>
                 <div style="clear:both"></div>
                 <div class="now_playing_deets">

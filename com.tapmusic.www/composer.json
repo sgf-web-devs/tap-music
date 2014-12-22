@@ -10,8 +10,9 @@
         "way/generators": "~2.0",
 		"guzzlehttp/guzzle": "~4.0",
 		"jwilsson/spotify-web-api-php": "0.6.0",
-		"laracasts/utilities": "~1.0"
-    },
+		"laracasts/utilities": "~1.0",
+	  	"forxer/Gravatar": "~1.2"
+	},
 	"autoload": {
 		"classmap": [
 			"app/commands",

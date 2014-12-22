@@ -1,5 +1,7 @@
 <?php
 
+use forxer\Gravatar\Gravatar;
+
 class AuthController extends BaseController {
 
     protected $client_id;
@@ -52,7 +54,7 @@ class AuthController extends BaseController {
         try{
             $userImage = $user->images[0]->url;
         }catch (Exception $e){
-            $userImage = 'http://tapmusic.mykebates.com/images/pied.png';
+            $userImage = Gravatar::image($user->email, 100, 'mm');
         }
 
         Session::put('accessToken', $accessToken);
@@ -100,7 +102,7 @@ class AuthController extends BaseController {
         try {
             $userImage = $user->images[0]->url;
         } catch (Exception $e) {
-            $userImage = 'http://tapmusic.mykebates.com/images/pied.png';
+            $userImage = Gravatar::image($user->email, 100, 'mm');
         }
 
         if(Session::get('userID')){

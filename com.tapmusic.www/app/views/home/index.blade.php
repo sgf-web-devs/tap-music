@@ -56,7 +56,7 @@
                     <ul>
                         <li ng-repeat="user in onlineUsers" data-userid="{{ user.id }}" data-name="{{ user.name }}">
                             <img ng-src="{{ user.image }}" alt="{{ user.name }}"/>
-                            <div class="user-name">{{ user.name }}</div>
+                            <div class="user-name">{{ user.name || user.id }}</div>
                         </li>
                     </ul>
                 </div>

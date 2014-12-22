@@ -227,7 +227,8 @@ class QueueController extends BaseController
             $client = new GuzzleHttp\Client();
 
             $userName = $song->userName ?: 'Somebody';
-            $messageBody = "$userName is now playing: $song->trackName by $song->artistName " . Request::root();
+            $spotifyLink = "http://open.spotify.com/track/$nextSong->spotifyURL";
+            $messageBody = "$userName is now playing: $song->trackName by $song->artistName " . $spotifyLink;
 
             foreach (Config::get('settings.slackChannels') as $channel) {
                 $client->post($channel['API_PATH'] . '&channel=%23' . $channel['CHANNEL_NAME'], [

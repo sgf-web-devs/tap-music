@@ -3721,6 +3721,9 @@ body {
     display: block;
     width: 100%;
     overflow: hidden; }
+  body {
+    height: 100% !important;
+    overflow-y: scroll; }
   #tap_stream {
     display: block;
     height: 40px !important;
@@ -3731,8 +3734,8 @@ body {
     height: 0;
     visibility: hidden; }
   .now-playing {
-    overflow: scroll;
-    width: 100%; }
+    width: 100%;
+    height: auto !important; }
   .side_queue, .side_search {
     flex: 0 0 100%;
     width: 100% !important;

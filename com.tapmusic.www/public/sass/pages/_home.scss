@@ -452,9 +452,10 @@ body{ display: flex; height: 100vh; flex-direction: column; }
   //body, .flex_wrap{ height: auto; overflow: hidden; }
   .mobile_tabs{ display: block; }
   body, .flex_wrap, .wrapper{ height: auto !important; display: block; width: 100%; overflow: hidden; }
+  body{ height: 100% !important; overflow-y: scroll; }
   #tap_stream{ display: block; height: 40px !important; width: 100% !important; }
   #tap_stream.is_hidden{ display: none; width: 0; height: 0; visibility: hidden; }
-  .now-playing{ overflow: scroll; width: 100%; }
+  .now-playing{ width: 100%; height: auto !important; }
   .side_queue, .side_search { flex: 0 0 100%; width: 100% !important; height: auto !important; }
   .side_queue, .side_search{ display: none; }
   .side_queue{

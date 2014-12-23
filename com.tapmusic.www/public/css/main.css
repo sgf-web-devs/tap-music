@@ -3706,7 +3706,15 @@ body {
 .side_search {
   padding: 20px; }
 
+#tap_stream {
+  display: none; }
+
+.mobile_tabs {
+  display: none; }
+
 @media screen and (max-width: 767px) {
+  .mobile_tabs {
+    display: block; }
   body, .flex_wrap, .wrapper {
     height: auto !important;
     display: block;

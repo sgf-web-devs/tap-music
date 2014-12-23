@@ -441,10 +441,14 @@ body{ display: flex; height: 100vh; flex-direction: column; }
 
 .side_search{ padding: 20px; }
 
+#tap_stream{ display: none; }
+.mobile_tabs{ display: none; }
+
 
 @include media($smaller_than_tablet)
 {
   //body, .flex_wrap{ height: auto; overflow: hidden; }
+  .mobile_tabs{ display: block; }
   body, .flex_wrap, .wrapper{ height: auto !important; display: block; width: 100%; overflow: hidden; }
   #tap_stream{ display: block; height: 40px !important; width: 100% !important; }
   #tap_stream.is_hidden{ display: none; width: 0; height: 0; visibility: hidden; }

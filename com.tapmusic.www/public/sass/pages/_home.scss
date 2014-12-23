@@ -440,3 +440,32 @@ body{ display: flex; height: 100vh; flex-direction: column; }
 .side_queue{  order: -1; }
 
 .side_search{ padding: 20px; }
+
+
+@include media($smaller_than_tablet)
+{
+  //body, .flex_wrap{ height: auto; overflow: hidden; }
+  body, .flex_wrap, .wrapper{ height: auto !important; display: block; width: 100%; overflow: hidden; }
+  #tap_stream{ display: block; height: 40px !important; width: 100% !important; }
+  #tap_stream.is_hidden{ display: none; width: 0; height: 0; visibility: hidden; }
+  .now-playing{ overflow: scroll; width: 100%; }
+  .side_queue, .side_search { flex: 0 0 100%; width: 100% !important; height: auto !important; }
+  .side_queue, .side_search{ display: none; }
+  .side_queue{
+    h5:first-of-type{ margin: 0; padding: 20px; }
+  }
+
+  .mobile_tabs{
+    background: $dark-gray;
+    ul{ padding: 0; margin: 0; @include cf(); }
+    li{
+      @include column(1/3); font-size: 1.5em; text-align: center;
+      padding: .25em 0;
+      a{ color: #81848E; &.is_active{ color: #fff; } }
+    }
+  }
+
+  .the-queue{
+    max-height: 53vh; overflow: hidden;
+  }
+}

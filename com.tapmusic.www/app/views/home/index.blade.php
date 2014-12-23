@@ -2,8 +2,15 @@
 
 @section('content')
 
+    <nav class="mobile_tabs">
+        <ul>
+            <li><a data-target="now-playing" class="is_active" href="#"><i class="fa fa-play"></i></a></li>
+            <li><a data-target="side_search" href="#"><i class="fa fa-search"></i></a></li>
+            <li><a data-target="side_queue" href="#"><i class="fa fa-list"></i></a></li>
+        </ul>
+    </nav>
     @if (Config::get('settings.playerStreamUrl') && !Config::get('settings.playerStreamDisable'))
-        <audio id="tap_stream" src="[[ Config::get('settings.playerStreamUrl') ]]" autoplay></audio>
+        <audio controls="controls" id="tap_stream" src="[[ Config::get('settings.playerStreamUrl') ]]" autoplay></audio>
     @endif
     <audio id="preview" src=""></audio>
 

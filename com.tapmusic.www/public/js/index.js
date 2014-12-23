@@ -191,6 +191,19 @@
                 return false;
             });
 
+            $('.mobile_tabs a').on('click', function(){
+                $('.now-playing, .side_queue, .side_search').hide();
+                $('.' + $(this).data('target')).show();
+                $('.mobile_tabs a').removeClass('is_active');
+                $(this).addClass('is_active');
+                console.log($(this).data('target') == 'now-playing');
+                if ($(this).data('target') == 'now-playing') {
+                    $('#tap_stream').removeClass('is_hidden');
+                } else {
+                    $('#tap_stream').addClass('is_hidden');
+                }
+            });
+
         });
 
         $scope.stopProgressInterval = function() {

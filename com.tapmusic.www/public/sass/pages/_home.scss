@@ -433,7 +433,9 @@ body{ display: flex; height: 100vh; flex-direction: column; }
 
 .flex_wrap{ display: flex; flex: 1; height: 100vh; padding-top: 0; padding-bottom: 0; }
 
-.now-playing{ flex: 1; overflow: hidden; }
+.now-playing{
+  flex: 1; height: 100vh; overflow-y: scroll;
+}
 
 .side_queue, .side_search{ flex: 0 0 32.5%; }
 

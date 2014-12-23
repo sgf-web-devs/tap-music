@@ -3695,7 +3695,8 @@ body {
 
 .now-playing {
   flex: 1;
-  overflow: hidden; }
+  height: 100vh;
+  overflow-y: scroll; }
 
 .side_queue, .side_search {
   flex: 0 0 32.5%; }

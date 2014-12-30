@@ -35,6 +35,9 @@
 
 
                     <div class="now-playing-artist"><span>by</span> {{ currentTrack.artistName }}</div>
+                    <div class="time">
+                        <i class="fa fa-clock-o"></i> {{ parseTrackTime(currentTrack.duration) }}
+                    </div>
                     <figure class="current-song-user">
                         <img ng-src="{{ currentTrack.userImage }}" title="{{ currentTrack.userName }}" />
                     </figure>
@@ -47,7 +50,7 @@
                     <div class="playing-next" ng-repeat-start="track in queueTracks" ng-if="$first">
                         <div class="next">NEXT</div>
                         <img ng-src="{{ track.userImage }}" title="{{ track.userName }}" />
-                        <h1>{{ track.trackName }}</h1>
+                        <h1>{{ track.trackName }} <span>- {{ parseTrackTime(track.duration) }}</span></h1>
                         <h5>{{ track.artistName }}</h5>
                     </div>
                     <div style="clear:both"></div>
@@ -55,7 +58,7 @@
                         <ul>
                             <li>
                                 <img ng-src="{{ track.userImage }}" title="{{ track.userName }}" />
-                                <h1>{{ track.trackName }}</h1>
+                                <h1>{{ track.trackName }} <span>- {{ parseTrackTime(track.duration) }}</span></h1>
                                 <h5>{{ track.artistName }}</h5>
                             </li>
                         </ul>
@@ -113,6 +116,7 @@
                                 <div>
                                     <h1 title="{{ track.name }}">{{ track.name }}</h1>
                                     <h5>{{ track.artists[0].name }}</h5>
+                                    <h5>{{ parseTrackTime(track.duration_ms) }}</h5>
                                 </div>
                             </li>
                         </ul>
@@ -144,7 +148,7 @@
                                     <a href="#" class="songIWant" id="{{ track.track.id }}"><i class="fa fa-plus" style="color: #333; font-size: 16px; margin-right: 10px;"></i></a>
                                     <a href="#" class="songIWantToPreview" id="{{ track.track.id }}"><i class="fa fa-play" style="color: #333; font-size: 16px;"></i></a>
                                 </div>
-                                <h4 class="media-heading">{{ track.track.name }}</h4>
+                                <h4 class="media-heading">{{ track.track.name }} - {{ parseTrackTime(track.track.duration_ms) }}</h4>
                                 <span>{{ track.track.artists[0].name }}</span>
                             </div>
                         </div>

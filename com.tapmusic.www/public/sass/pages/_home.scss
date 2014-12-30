@@ -75,6 +75,10 @@ body{
     width: 100%;
   }
 
+  .time{
+    color: #C8CCD8; text-align: left; margin-top: .25em; font-size: .75em;
+  }
+
   .current-song-user{
     margin-top: 1em;
     //float:left;
@@ -188,6 +192,7 @@ h1{
   color:$grayish;
   margin:0;
   padding:0;
+  span{ font-size: .65em; }
 }
   h5{
     font-weight: 500;
@@ -227,6 +232,7 @@ h1{
     color:$medium-gray;
     margin:0;
     padding:0 20px 0 0;
+    span { font-size: .65em; }
   }
   h5{
     font-family: $font-stack;

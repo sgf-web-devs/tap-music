@@ -3446,6 +3446,11 @@ body {
   background: #222326; }
   .now-playing img {
     width: 100%; }
+  .now-playing .time {
+    color: #C8CCD8;
+    text-align: left;
+    margin-top: 0.25em;
+    font-size: 0.75em; }
   .now-playing .current-song-user {
     margin-top: 1em;
     text-align: left; }
@@ -3531,6 +3536,8 @@ body {
     color: #81848E;
     margin: 0;
     padding: 0; }
+    .playing-next h1 span {
+      font-size: 0.65em; }
   .playing-next h5 {
     font-weight: 500;
     font-size: 18px;
@@ -3565,6 +3572,8 @@ body {
     color: #5A5C62;
     margin: 0;
     padding: 0 20px 0 0; }
+    .queued h1 span, .results h1 span {
+      font-size: 0.65em; }
   .queued h5, .results h5 {
     font-family: 'Titillium Web', sans-serif;
     font-weight: 600;

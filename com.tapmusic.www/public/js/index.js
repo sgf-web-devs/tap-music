@@ -32,7 +32,6 @@
                 success(function (data, status, headers, config) {
 
                     //$scope.playlists = data;
-                    console.log($scope.playlists);
                     var modalInstance = $modal.open({
                         templateUrl: 'myModalContent.html',
                         controller: 'ModalInstanceCtrl',
@@ -55,7 +54,14 @@
             );
         };
 
+        $scope.parseTrackTime = function(duration) {
+            return moment(parseInt(duration)).format("m:ss");
+        }
+
         $scope.onlineUsers = [];
+
+        //var moment = moment();
+        //console.log(moment.duration(1000));
 
         channel.bind('pusher:subscription_succeeded', function () {
             var me = channel.members.me;
@@ -65,15 +71,6 @@
 
             console.log(me);
             console.log(channel.members.members);
-            //console.log(_.toArray(channel.members.members));
-
-            // Set user in online_users table
-            //$http.get('/pusher/subscription-succeeded', { params: { userID : me.id } }).
-            //    success(function(data, status, headers, config) {
-            //        console.log(data);
-            //    }).
-            //    error(function(data, status, headers, config) {}
-            //);
 
             if(channel.members.count == 1)
             {
@@ -302,7 +299,6 @@
         {
             $http.get('/spotify/search', { params: { search: searchPhrase } }).
                 success(function(data, status, headers, config) {
-                    console.log(data.tracks.items);
                     $('.search_loading').hide();
                     $('.song-results .results').show();
                     $scope.searchResults = data.tracks.items;
@@ -394,15 +390,17 @@ tapmusicApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, pl
 
     $scope.hideResults = function () {
         $scope.playlistModalTitle = '';
-        console.log('hide stuff');
     };
+
+    $scope.parseTrackTime = function (duration) {
+        return moment(parseInt(duration)).format("m:ss");
+    }
 
     $scope.selectPlaylist = function(id, name) {
         $scope.loaderToggleClass = '';
 
         $http.get('/spotify/playlist', { params: {playlistID: id } }).
             success(function (data, status, headers, config) {
-                console.log(data.length);
                 $scope.loaderToggleClass = 'hide';
                 $scope.playlistModalTitle = name;
                 $scope.currentPlaylist = data;

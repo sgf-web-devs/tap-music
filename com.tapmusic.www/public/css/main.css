@@ -3381,6 +3381,19 @@ html, body {
 .margin-top {
   margin-top: 1em; }
 
+.playlistModal.modal-header a {
+  color: #333; }
+.playlistModal.modal-header h3 {
+  display: inline-block; }
+.playlistModal .selectPlaylist {
+  cursor: pointer; }
+  .playlistModal .selectPlaylist:hover {
+    text-decoration: underline; }
+.playlistModal .playlistTracks span {
+  font-size: 0.75em; }
+.playlistModal .playlistTracks .media-heading {
+  margin-bottom: 0; }
+
 html {
   background: #000000; }
 

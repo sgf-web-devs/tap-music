@@ -4,11 +4,13 @@ class SpotifyController extends BaseController {
 
     protected $client_id;
     protected $client_secret;
+    protected $callback_url;
 
     public function __construct()
     {
         $this->client_id = Config::get('services.spotify.client_id');
         $this->client_secret = Config::get('services.spotify.client_secret');
+        $this->callback_url = config::get('services.spotify.callback_url');
     }
 
     public function getSearch()
@@ -62,5 +64,27 @@ class SpotifyController extends BaseController {
         //return $response->getBody();
     }
 
+    public function getPlaylists()
+    {
+        $api = new SpotifyWebAPI\SpotifyWebAPI();
 
+        $api->setAccessToken(Session::get('accessToken'));
+
+        $playlists = $api->getUserPlaylists(Session::get('userID'), array(
+            'limit' => 50
+        ));
+
+        return $playlists->items;
+    }
+
+    public function getPlaylist()
+    {
+        $api = new SpotifyWebAPI\SpotifyWebAPI();
+
+        $api->setAccessToken(Session::get('accessToken'));
+
+        $playlist = $api->getUserPlaylist(Session::get('userID'), Input::get('playlistID'));
+
+        return $playlist->tracks->items;
+    }
 }

@@ -1,0 +1,17 @@
+.playlistModal
+{
+	&.modal-header{
+		a{ color: #333; }
+		h3{ display: inline-block; }
+	}
+
+	.selectPlaylist{
+		cursor: pointer;
+		&:hover{ text-decoration: underline; }
+	}
+	
+	.playlistTracks{
+		span{ font-size: .75em; }
+		.media-heading{ margin-bottom: 0; }
+	}
+}

@@ -1,9 +1,9 @@
 // Requires... nothing here yet :)
 //var dropdown = require('./dropdown');
 
-    var tapmusicApp = angular.module('tapmusicApp', []);
+    var tapmusicApp = angular.module('tapmusicApp', ['ui.bootstrap']);
 
-    tapmusicApp.controller('TapMusicCtrl', function ($scope, $http, $interval) {
+    tapmusicApp.controller('TapMusicCtrl', function ($scope, $http, $interval, $modal) {
 
         var $appTitle = jQuery('#app-title'),
             pusher = new Pusher(pusherConf.publicKey, {authEndpoint: '/auth/login'}),
@@ -21,6 +21,38 @@
             percent: 0,
             time_since: 0,
             duration: 0
+        };
+
+        $scope.playlists = [];
+
+
+        $scope.open = function (size) {
+
+            $http.get('/spotify/playlists').
+                success(function (data, status, headers, config) {
+
+                    //$scope.playlists = data;
+                    console.log($scope.playlists);
+                    var modalInstance = $modal.open({
+                        templateUrl: 'myModalContent.html',
+                        controller: 'ModalInstanceCtrl',
+                        size: size,
+                        resolve: {
+                            playlists: function () {
+                                return data;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        $scope.selected = selectedItem;
+                    }, function () {
+                        //$log.info('Modal dismissed at: ' + new Date());
+                    });
+                }).
+                error(function (data, status, headers, config) {
+                }
+            );
         };
 
         $scope.onlineUsers = [];
@@ -117,6 +149,8 @@
 
             $('body').on('click', '.songIWant',function(){
                 var songID = $(this).attr('id');
+                var parent = $(this).closest('li');
+                $('h1, h5, h4, span, img', parent).animateCSS('bounce');
 
                 $http.post('/queue/add-song', { songID: songID }).
                     success(function (data, status, headers, config) {
@@ -341,3 +375,42 @@
             }
         }
     });
+
+
+tapmusicApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, playlists, $http) {
+
+    $scope.playlistModalTitle = '';
+    $scope.playlists = playlists;
+    $scope.currentPlaylist = [];
+    $scope.loaderToggleClass = 'hide';
+
+    $scope.ok = function () {
+        //$modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.hideResults = function () {
+        $scope.playlistModalTitle = '';
+        console.log('hide stuff');
+    };
+
+    $scope.selectPlaylist = function(id, name) {
+        $scope.loaderToggleClass = '';
+
+        $http.get('/spotify/playlist', { params: {playlistID: id } }).
+            success(function (data, status, headers, config) {
+                console.log(data.length);
+                $scope.loaderToggleClass = 'hide';
+                $scope.playlistModalTitle = name;
+                $scope.currentPlaylist = data;
+                jQuery('.modal').animate({scrollTop: 0}, 'fast');
+            }).
+            error(function (data, status, headers, config) {
+            }
+        );
+    };
+
+});

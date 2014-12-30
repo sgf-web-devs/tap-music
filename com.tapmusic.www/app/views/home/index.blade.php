@@ -31,6 +31,9 @@
                 <div class="now_playing_deets">
                     <h5>NOW PLAYING</h5>
                     <div class="now-playing-title">{{ currentTrack.trackName }}</div>
+
+
+
                     <div class="now-playing-artist"><span>by</span> {{ currentTrack.artistName }}</div>
                     <figure class="current-song-user">
                         <img ng-src="{{ currentTrack.userImage }}" title="{{ currentTrack.userName }}" />
@@ -71,7 +74,10 @@
 
             <aside class="side_search">
                 <div class="add-to-queue">
-                    <h5>Add to Queue</h5>
+                    <h5>
+                        Add to Queue
+                        <a href="#" class="saveToList" ng-click="open()"><i class="fa fa-spotify" style="color:#81b71a; font-size: 16px; padding-left: 10px; outline: 0;"></i></a>
+                    </h5>
                     <form class="spotify_search">
                         <input type="text" name="songID" id="songID" placeholder="Search for track" autocomplete="off" required>
                     </form>
@@ -118,6 +124,49 @@
 
 
         <footer class="footer">Footer</footer>
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header playlistModal">
+                <a ng-if="playlistModalTitle" ng-click="hideResults()" href="#"><i class="fa fa-chevron-left"></i></a>
+                <h3 class="modal-title">{{ playlistModalTitle || "Queue Up Some Spotify" }}</h3>
+                <i ng-class="loaderToggleClass" class="fa fa-circle-o-notch fa-spin" style="color: #B45818; font-size: 1.25em; padding: 3px;"></i>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group playlistModal" ng-show="playlistModalTitle">
+                    <li class="list-group-item playlistTracks" ng-repeat="track in currentPlaylist">
+                        <div class="media">
+                            <a class="media-left" href="#">
+                                <img ng-src="{{ track.track.album.images[2].url }}">
+                            </a>
+
+                            <div class="media-body">
+                                <div>
+                                    <a href="#" class="songIWant" id="{{ track.track.id }}"><i class="fa fa-plus" style="color: #333; font-size: 16px; margin-right: 10px;"></i></a>
+                                    <a href="#" class="songIWantToPreview" id="{{ track.track.id }}"><i class="fa fa-play" style="color: #333; font-size: 16px;"></i></a>
+                                </div>
+                                <h4 class="media-heading">{{ track.track.name }}</h4>
+                                <span>{{ track.track.artists[0].name }}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list-group playlistModal" ng-hide="playlistModalTitle">
+                    <li class="list-group-item selectPlaylist"
+                        ng-repeat="playlist in playlists"
+                        data-id="{{ playlist.id }}"
+                        data-name="{{ playlist.name }}"
+                        ng-click="selectPlaylist(playlist.id, playlist.name)"
+                    >
+                        <span class="badge">{{ playlist.tracks.total }}</span>
+                        {{ playlist.name }} <i class="fa fa-chevron-right"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Close</button>
+            </div>
+        </script>
+
     </div>
 @stop
 

@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="//js.pusher.com/2.2/pusher.min.js"></script>
     <script src="//cdn.jsdelivr.net/angular.pusher/latest/pusher-angular.min.js"></script>
+    <script src="/js/vendor/ui-bootstrap-custom-tpls-0.12.0.min.js"></script>
     @yield('header')
 
 

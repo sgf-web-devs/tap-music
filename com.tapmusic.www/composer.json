@@ -12,7 +12,8 @@
 		"jwilsson/spotify-web-api-php": "0.6.0",
 		"laracasts/utilities": "~1.0",
 	  	"forxer/Gravatar": "~1.2",
-		"barryvdh/laravel-ide-helper": "~1.11"
+		"barryvdh/laravel-ide-helper": "~1.11",
+	  	"doctrine/dbal": "~2.3"
 	},
 	"autoload": {
 		"classmap": [

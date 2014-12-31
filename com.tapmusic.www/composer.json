@@ -11,7 +11,8 @@
 		"guzzlehttp/guzzle": "~4.0",
 		"jwilsson/spotify-web-api-php": "0.6.0",
 		"laracasts/utilities": "~1.0",
-	  	"forxer/Gravatar": "~1.2"
+	  	"forxer/Gravatar": "~1.2",
+		"barryvdh/laravel-ide-helper": "~1.11"
 	},
 	"autoload": {
 		"classmap": [
@@ -30,6 +31,7 @@
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
+		  	"php artisan ide-helper:generate",
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [

@@ -3394,6 +3394,94 @@ html, body {
 .playlistModal .playlistTracks .media-heading {
   margin-bottom: 0; }
 
+.side_chat {
+  height: 48.5vh;
+  color: #C8CCD8;
+  position: relative; }
+  .side_chat .chat_header {
+    padding: 0 20px; }
+    .side_chat .chat_header h1 {
+      color: #C8CCD8;
+      font-size: 1.25em; }
+  .side_chat .chat_log {
+    height: 78%;
+    overflow-y: auto; }
+    .side_chat .chat_log article {
+      *zoom: 1;
+      padding: 15px 20px; }
+      .side_chat .chat_log article:before, .side_chat .chat_log article:after {
+        content: '';
+        display: table; }
+      .side_chat .chat_log article:after {
+        clear: both; }
+      .side_chat .chat_log article:nth-child(even) {
+        background: #222326; }
+      .side_chat .chat_log article figure {
+        *zoom: 1;
+        float: left;
+        clear: none;
+        text-align: inherit;
+        padding-left: 0;
+        padding-right: 0;
+        width: 12.45%;
+        margin-left: 0%;
+        margin-right: 3%; }
+        .side_chat .chat_log article figure:before, .side_chat .chat_log article figure:after {
+          content: '';
+          display: table; }
+        .side_chat .chat_log article figure:after {
+          clear: both; }
+        .side_chat .chat_log article figure:last-child {
+          margin-right: 0%; }
+        .side_chat .chat_log article figure img {
+          width: 100%;
+          border-radius: 3px; }
+      .side_chat .chat_log article section {
+        *zoom: 1;
+        float: left;
+        clear: none;
+        text-align: inherit;
+        padding-left: 0;
+        padding-right: 0;
+        width: 84.55%;
+        margin-left: 0%;
+        margin-right: 3%; }
+        .side_chat .chat_log article section:before, .side_chat .chat_log article section:after {
+          content: '';
+          display: table; }
+        .side_chat .chat_log article section:after {
+          clear: both; }
+        .side_chat .chat_log article section:last-child {
+          margin-right: 0%; }
+        .side_chat .chat_log article section header {
+          *zoom: 1;
+          margin-bottom: 1em; }
+          .side_chat .chat_log article section header:before, .side_chat .chat_log article section header:after {
+            content: '';
+            display: table; }
+          .side_chat .chat_log article section header:after {
+            clear: both; }
+          .side_chat .chat_log article section header h1, .side_chat .chat_log article section header h2 {
+            font-size: 0.75em;
+            float: left;
+            margin: 0;
+            color: #5A5C62; }
+          .side_chat .chat_log article section header h2 {
+            float: right; }
+        .side_chat .chat_log article section .entry {
+          font-size: 0.75em; }
+  .side_chat footer {
+    background: #37383D;
+    padding: 20px;
+    position: absolute;
+    bottom: 0; }
+    .side_chat footer input[type="text"] {
+      background: #222326;
+      color: #C8CCD8; }
+    .side_chat footer .btn {
+      background: #B45818;
+      color: #333; }
+
 html {
   background: #000000; }
 
@@ -3654,7 +3742,7 @@ body {
     font-family: 'Titillium Web', sans-serif;
     font-weight: 600;
     font-size: 14px;
-    width: 80%; }
+    width: 100%; }
   .side_search input[type="submit"] {
     margin: 0;
     padding: 10px;
@@ -3723,11 +3811,13 @@ body {
 .side_queue, .side_search {
   flex: 0 0 32.5%; }
 
+.side_search .search {
+  height: 50vh;
+  overflow-y: auto;
+  padding: 20px 20px 0 20px; }
+
 .side_queue {
   order: -1; }
-
-.side_search {
-  padding: 20px; }
 
 #tap_stream {
   display: none; }

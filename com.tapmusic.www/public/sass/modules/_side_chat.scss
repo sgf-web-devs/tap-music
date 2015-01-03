@@ -1,0 +1,45 @@
+.side_chat
+{
+	height: 48.5vh; color: #C8CCD8; position: relative;
+	//#5A5C62
+
+	.chat_header {
+		padding: 0 20px;
+		h1 { color: #C8CCD8; font-size: 1.25em; }
+	}
+
+	.chat_log{
+		height: 78%; overflow-y: auto;
+
+		article{
+			@include cf(); padding: 15px 20px;
+			//margin-bottom: 1.5em;
+			//&:last-child { margin-bottom: 0; }
+			&:nth-child(even){ background: #222326; }
+			figure{
+				@include column(.15);
+				img{ width: 100%; border-radius: 3px; }
+			}
+			section{
+				@include column(.85);
+				
+				header{
+					@include cf(); margin-bottom: 1em;
+					h1, h2{ font-size: .75em; float: left; margin: 0; color: #5A5C62; }
+					h2{ float: right; }
+				}
+				
+				.entry{
+					font-size: .75em;
+				}
+			}
+		}
+	}
+	
+	footer{
+		//margin-top: 1em;
+		background: #37383D; padding: 20px; position: absolute; bottom: 0;
+		input[type="text"]{ background: #222326; color: #C8CCD8; }
+		.btn{ background: #B45818; color: #333; }
+	}
+}

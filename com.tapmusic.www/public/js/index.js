@@ -24,6 +24,7 @@
         };
 
         $scope.playlists = [];
+        $scope.chatLog = [];
 
 
         $scope.open = function (size) {
@@ -105,6 +106,16 @@
             // for example:
             $scope.$apply(function () {
                 $scope.onlineUsers = _.toArray(channel.members.members);
+            });
+        });
+
+        channel.bind('chatMessageSent', function (data) {
+            $scope.$apply(function () {
+                var time = moment.unix(data.time);
+                data.time = moment(time._d).format("h:mm a");
+                $scope.chatLog.push(data);
+
+                $(".chat_log").animate({scrollTop: $('.chat_log')[0].scrollHeight}, 300);
             });
         });
 
@@ -233,6 +244,24 @@
                 } else {
                     $('#tap_stream').addClass('is_hidden');
                 }
+            });
+
+            // Chat send message
+            $('.side_chat footer form').on('submit', function(){
+                var messageField = $('input[name="message"]'),
+                    message = messageField.val();
+
+                messageField.val(''); // clear message field
+
+                $http.post('/pusher/send-chat-message', {message: message}).
+                    success(function (data, status, headers, config) {
+
+                    }).
+                    error(function (data, status, headers, config) {
+                        console.log('error');
+                    });
+
+                return false;
             });
 
         });

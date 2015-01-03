@@ -21,7 +21,7 @@ class PlayerController extends BaseController {
             'message' => Input::get('songID')
         ];
 
-        $pusher->trigger( 'tapmusic_channel', 'song-play', $data );
+        $pusher->trigger(Config::get('settings.playerChannel'), 'song-play', $data );
 
         return Redirect::back();
     }

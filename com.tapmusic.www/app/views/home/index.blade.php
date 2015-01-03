@@ -76,52 +76,65 @@
             </aside>
 
             <aside class="side_search">
-                <div class="add-to-queue">
-                    <h5>
-                        Add to Queue
-                        <a href="#" class="saveToList" ng-click="open()"><i class="fa fa-spotify" style="color:#81b71a; font-size: 16px; padding-left: 10px; outline: 0;"></i></a>
-                    </h5>
-                    <form class="spotify_search">
-                        <input type="text" name="songID" id="songID" placeholder="Search for track" autocomplete="off" required>
-                    </form>
-                </div>
+                <div class="search">
+                    <div class="add-to-queue">
+                        <h5>
+                            Add to Queue
+                            <a href="#" class="saveToList" ng-click="open()"><i class="fa fa-spotify"
+                                                                                style="color:#81b71a; font-size: 16px; padding-left: 10px; outline: 0;"></i></a>
+                        </h5>
 
-                <div class="album-results">
-                    <h5>Album Results</h5>
-                    <img src="http://yellowdogrecords.com/presskits/cache/fiona/albumart/ydr_1353_cover_125_cw121_ch121_thumb.jpg" />
-                    <img src="http://media.thesexydetectives.com/SexyD-Album-art-125x125.png" />
-                    <img src="http://yellowdogrecords.com/presskits/cache/fiona/albumart/ydr_1353_cover_125_cw121_ch121_thumb.jpg" />
-                    <img src="http://media.thesexydetectives.com/SexyD-Album-art-125x125.png" />
-                </div>
-                <div class="artist-results">
-                    <h5>Artist Results</h5>
-                    <ul>
-                        <li>JOHNNY CASH</li>
-                        <li>JOHN LEGEND</li>
-                        <li>JOHNNY MAYER</li>
-                    </ul>
-                </div>
-                <div class="song-results">
-                    <h5>Song Results</h5>
-                    <div style="text-align: center; display: none;" class="search_loading">
-                        <i class="fa fa-circle-o-notch fa-spin" style="color: #B45818; font-size: 1.75em; margin-top: 1em;"></i>
+                        <form class="spotify_search">
+                            <input type="text" name="songID" id="songID" placeholder="Search for track"
+                                   autocomplete="off" required>
+                        </form>
                     </div>
-                    <div class="results">
 
+                    <div class="album-results">
+                        <h5>Album Results</h5>
+                        <img src="http://yellowdogrecords.com/presskits/cache/fiona/albumart/ydr_1353_cover_125_cw121_ch121_thumb.jpg"/>
+                        <img src="http://media.thesexydetectives.com/SexyD-Album-art-125x125.png"/>
+                        <img src="http://yellowdogrecords.com/presskits/cache/fiona/albumart/ydr_1353_cover_125_cw121_ch121_thumb.jpg"/>
+                        <img src="http://media.thesexydetectives.com/SexyD-Album-art-125x125.png"/>
+                    </div>
+                    <div class="artist-results">
+                        <h5>Artist Results</h5>
                         <ul>
-                            <li ng-repeat="track in searchResults">
-                                <a href="#" class="songIWant" id="{{ track.id }}"><i class="fa fa-plus" style="color:white; font-size: 16px;"></i></a>
-                                <a href="#" class="songIWantToPreview" id="{{ track.id }}"><i class="fa fa-play" style="color:white; font-size: 16px;"></i></a>
-                                <img ng-src="{{ track.album.images[2].url }}">
-                                <div>
-                                    <h1 title="{{ track.name }}">{{ track.name }}</h1>
-                                    <h5>{{ track.artists[0].name }}</h5>
-                                    <h5>{{ parseTrackTime(track.duration_ms) }}</h5>
-                                </div>
-                            </li>
+                            <li>JOHNNY CASH</li>
+                            <li>JOHN LEGEND</li>
+                            <li>JOHNNY MAYER</li>
                         </ul>
-
                     </div>
+                    <div class="song-results">
+                        <h5>Song Results</h5>
+
+                        <div style="text-align: center; display: none;" class="search_loading">
+                            <i class="fa fa-circle-o-notch fa-spin"
+                               style="color: #B45818; font-size: 1.75em; margin-top: 1em;"></i>
+                        </div>
+                        <div class="results">
+
+                            <ul>
+                                <li ng-repeat="track in searchResults">
+                                    <a href="#" class="songIWant" id="{{ track.id }}"><i class="fa fa-plus"
+                                                                                         style="color:white; font-size: 16px;"></i></a>
+                                    <a href="#" class="songIWantToPreview" id="{{ track.id }}"><i class="fa fa-play"
+                                                                                                  style="color:white; font-size: 16px;"></i></a>
+                                    <img ng-src="{{ track.album.images[2].url }}">
+
+                                    <div>
+                                        <h1 title="{{ track.name }}">{{ track.name }}</h1>
+                                        <h5>{{ track.artists[0].name }}</h5>
+                                        <h5>{{ parseTrackTime(track.duration_ms) }}</h5>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="side_chat">
+                    @include('partials.chat')
                 </div>
             </aside>
         </div>

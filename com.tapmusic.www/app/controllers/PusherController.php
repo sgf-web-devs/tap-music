@@ -20,4 +20,18 @@ class PusherController extends BaseController {
         return $user;
     }
 
+    public function postSendChatMessage()
+    {
+        $pusher = new Pusher($this->app_key, $this->app_secret, $this->app_id);
+
+        $data = [
+            'message' => Input::get('message'),
+            'user' => Session::get('userName'),
+            'image' => Session::get('userImage'),
+            'time' => time()
+        ];
+
+        $pusher->trigger(Config::get('settings.presenceChannel'), 'chatMessageSent', $data);
+    }
+
 }

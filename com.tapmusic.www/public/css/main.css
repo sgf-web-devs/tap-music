@@ -3482,6 +3482,32 @@ html, body {
       background: #B45818;
       color: #333; }
 
+.now-playing figure.main {
+  position: relative;
+  background: transparent; }
+  .now-playing figure.main:hover {
+    cursor: pointer; }
+    .now-playing figure.main:hover:before {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      @incude trans();
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: "\f026";
+      background: rgba(180, 88, 24, 0.5);
+      color: #fff;
+      font-size: 10vw;
+      padding-top: 40%; }
+      @media screen and (max-width: 767px) {
+        .now-playing figure.main:hover:before {
+          font-size: 30vw; } }
+
 html {
   background: #000000; }
 

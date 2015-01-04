@@ -23,7 +23,9 @@
 
         <div class="flex_wrap">
             <div ng-if="currentTrack.albumArt" class="now-playing">
-                <img ng-src="{{ currentTrack.albumArt }}">
+                <figure class="main">
+                    <img ng-src="{{ currentTrack.albumArt }}">
+                </figure>
                 <div class="progress" progress-bar progress-data="progressData">
 
                 </div>

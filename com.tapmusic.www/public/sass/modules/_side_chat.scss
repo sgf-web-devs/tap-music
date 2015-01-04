@@ -4,8 +4,17 @@
 	//#5A5C62
 
 	.chat_header {
-		padding: 0 20px;
+		padding: 0 20px; @include cf();
+		h1, aside{ @include column(1/2); }
 		h1 { color: #C8CCD8; font-size: 1.25em; }
+		a{ color: #C8CCD8; }
+		aside{
+			text-align: right; top: .75em; position: relative;
+			.disableNotification{
+			 	i:before{ content: "\f0f3"; }
+				&.is_active{ i:before{ content: "\f1f6"; } }
+			}
+		}
 	}
 
 	.chat_log{

@@ -177,7 +177,8 @@ class QueueController extends BaseController
         $pusher = new Pusher($app_key, $app_secret, $app_id);
 
         $data = [
-            'message' => 'spotify:track:' . $nextSong->spotifyURL
+            'message' => 'spotify:track:' . $nextSong->spotifyURL,
+            'skipSound' => true
         ];
 
         DB::table('songs')
@@ -187,7 +188,7 @@ class QueueController extends BaseController
         $nextSong->start_time = time();
         $nextSong->save();
 
-        $pusher->trigger(Config::get('settings.presenceChannel'), 'nextSong', '');
+        $pusher->trigger(Config::get('settings.presenceChannel'), 'nextSong', $data);
         $pusher->trigger(Config::get('settings.playerChannel'), 'song-play', $data);
 
         $this->notifySlack($nextSong);

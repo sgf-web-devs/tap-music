@@ -25,6 +25,22 @@
 
         $scope.playlists = [];
         $scope.chatLog = [];
+        $scope.me = '';
+
+        ion.sound({
+            sounds: [
+                {
+                    name: "chat",
+                    volume: .5
+                },
+                {
+                    name: "next"
+                }
+            ],
+            volume: 1,
+            path: "sounds/",
+            preload: true
+        });
 
 
         $scope.open = function (size) {
@@ -68,6 +84,7 @@
             var me = channel.members.me;
             $scope.$apply(function () {
                 $scope.onlineUsers = _.toArray(channel.members.members);
+                $scope.me = me;
             });
 
             console.log(me);
@@ -115,6 +132,10 @@
                 data.time = moment(time._d).format("h:mm a");
                 $scope.chatLog.push(data);
 
+                if(!$('.disableNotification').hasClass('is_active') && data.user != $scope.me.info.name){
+                    ion.sound.play('chat');
+                }
+
                 $(".chat_log").animate({scrollTop: $('.chat_log')[0].scrollHeight}, 300);
             });
         });
@@ -129,6 +150,9 @@
 
         channel.bind('nextSong', function (data) {
             updateQueue();
+            if(data.skipSound){
+                ion.sound.play('next');
+            }
         });
 
         updateQueue();
@@ -230,6 +254,11 @@
                 $(this).toggleClass('mute');
                 var audio = document.getElementById('tap_stream');
                 audio.muted = !audio.muted;
+                return false;
+            });
+
+            $('.disableNotification').on('click', function () {
+                $(this).toggleClass('is_active');
                 return false;
             });
 

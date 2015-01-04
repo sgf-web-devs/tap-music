@@ -1,5 +1,8 @@
 <header class="chat_header">
     <h1>Chat <i class="fa fa-comments"></i></h1>
+    <aside>
+        <a class="disableNotification" href="#"><i class="fa"></i></a>
+    </aside>
 </header>
 <div class="chat_log">
     <article ng-repeat="message in chatLog">

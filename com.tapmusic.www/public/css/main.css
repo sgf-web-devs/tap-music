@@ -3513,15 +3513,6 @@ body {
   position: relative;
   color: #27282B;
   border-radius: 3px; }
-  .header a {
-    position: absolute;
-    right: 10px;
-    color: #27282B;
-    outline: none; }
-    .header a i:after {
-      content: "\f028"; }
-    .header a.mute i:after {
-      content: "\f026"; }
 
 .footer {
   display: none; }
@@ -3751,7 +3742,22 @@ body {
     font-family: FontAwesome; }
 
 .add-to-queue {
-  margin: 0 0 25px 0; }
+  margin: 0 0 25px 0;
+  position: relative; }
+  .add-to-queue aside {
+    position: absolute;
+    top: -3px;
+    right: 0; }
+    .add-to-queue aside a {
+      position: absolute;
+      top: 0;
+      right: 0;
+      outline: none;
+      color: #C8CCD8; }
+      .add-to-queue aside a i:after {
+        content: "\f028"; }
+      .add-to-queue aside a.mute i:after {
+        content: "\f026"; }
 
 .album-results {
   display: none; }
@@ -3806,7 +3812,7 @@ body {
 .now-playing {
   flex: 1;
   height: 100vh;
-  overflow-y: scroll; }
+  overflow-y: auto; }
 
 .side_queue, .side_search {
   flex: 0 0 32.5%; }
@@ -3835,7 +3841,7 @@ body {
     overflow: hidden; }
   body {
     height: 100% !important;
-    overflow-y: scroll; }
+    overflow-y: auto; }
   #tap_stream {
     display: block;
     height: 40px !important;

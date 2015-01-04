@@ -46,11 +46,6 @@ body{
   background-color: $tap-orange; position: relative;
   color: $dark-gray;
   border-radius:3px;
-	a{
-		position: absolute; right: 10px; color: $dark-gray; outline: none;
-		i:after{ content: "\f028"; }
-		&.mute i:after{ content: "\f026"; }
-	}
 }
 
 .footer {
@@ -344,7 +339,15 @@ h1{
 }
 
 .add-to-queue{
-  margin:0 0 25px 0;
+  margin:0 0 25px 0; position: relative;
+  aside{
+    position: absolute; top: -3px; right: 0;
+    a{
+      position: absolute; top: 0; right: 0; outline: none; color: #C8CCD8;
+      i:after{ content: "\f028"; }
+      &.mute i:after{ content: "\f026"; }
+    }
+  }
 }
 
 .album-results{
@@ -440,7 +443,7 @@ body{ display: flex; height: 100vh; flex-direction: column; }
 .flex_wrap{ display: flex; flex: 1; height: 100vh; padding-top: 0; padding-bottom: 0; }
 
 .now-playing{
-  flex: 1; height: 100vh; overflow-y: scroll;
+  flex: 1; height: 100vh; overflow-y: auto;
 }
 
 .side_queue, .side_search{ flex: 0 0 32.5%; }
@@ -459,7 +462,7 @@ body{ display: flex; height: 100vh; flex-direction: column; }
   //body, .flex_wrap{ height: auto; overflow: hidden; }
   .mobile_tabs{ display: block; }
   body, .flex_wrap, .wrapper{ height: auto !important; display: block; width: 100%; overflow: hidden; }
-  body{ height: 100% !important; overflow-y: scroll; }
+  body{ height: 100% !important; overflow-y: auto; }
   #tap_stream{ display: block; height: 40px !important; width: 100% !important; }
   #tap_stream.is_hidden{ display: none; width: 0; height: 0; visibility: hidden; }
   .now-playing{ width: 100%; height: auto !important; }

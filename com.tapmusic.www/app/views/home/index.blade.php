@@ -78,11 +78,15 @@
             <aside class="side_search">
                 <div class="search">
                     <div class="add-to-queue">
-                        <h5>
-                            Add to Queue
-                            <a href="#" class="saveToList" ng-click="open()"><i class="fa fa-spotify"
-                                                                                style="color:#81b71a; font-size: 16px; padding-left: 10px; outline: 0;"></i></a>
-                        </h5>
+                        <header>
+                            <h5>
+                                Add to Queue
+                                <a href="#" class="saveToList" ng-click="open()"><i class="fa fa-spotify" style="color:#81b71a; font-size: 16px; padding-left: 10px; outline: 0;"></i></a>
+                            </h5>
+                            <aside>
+                                <a href="#" class="volume_toggle"><i class="fa"></i></a>
+                            </aside>
+                        </header>
 
                         <form class="spotify_search">
                             <input type="text" name="songID" id="songID" placeholder="Search for track"

@@ -30,3 +30,9 @@
         </div>
     </form>
 </footer>
+
+<!--<ul ng-sortable="{animation:150}">
+    <li ng-repeat="item in localQueue">
+        {{item.trackName}}
+    </li>
+</ul>-->

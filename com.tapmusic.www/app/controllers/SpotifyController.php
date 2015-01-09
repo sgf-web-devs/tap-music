@@ -30,16 +30,16 @@ class SpotifyController extends BaseController {
         $trackData = \GuzzleHttp\json_decode($response->getBody());
 
         $song = [
-            'trackName' => $trackData->name,
+            'id'         => $songID,
+            'trackName'  => $trackData->name,
             'artistName' => $trackData->artists[0]->name,
-            'albumArt' => $trackData->album->images[0]->url
+            'albumArt'   => $trackData->album->images[0]->url,
+            'trackLength'   => $trackData->duration_ms
         ];
 
-        dd($song);
+        return $song;
 
-        //return $trackData;
-
-        return $response->getBody();
+        //return $response->getBody();
     }
 
     public function getPreview()

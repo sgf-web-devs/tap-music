@@ -22,7 +22,8 @@ Route::get('/', function()
             'presenceChannel' => Config::get('settings.presenceChannel'),
             'playerChannel' => Config::get('settings.playerChannel'),
             'publicKey' => Config::get('services.pusher.app_key')
-        ]
+        ],
+        '__userID' => Session::get('userID')
     ]);
 
     return View::make('home.index');

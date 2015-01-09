@@ -1,15 +1,18 @@
 // Requires... nothing here yet :)
 //var dropdown = require('./dropdown');
 
-    var tapmusicApp = angular.module('tapmusicApp', ['ui.bootstrap']);
+    var tapmusicApp = angular.module('tapmusicApp', ['ui.bootstrap', 'firebase', 'ng-sortable']);
 
-    tapmusicApp.controller('TapMusicCtrl', function ($scope, $http, $interval, $modal) {
+    tapmusicApp.controller('TapMusicCtrl', function ($scope, $http, $interval, $modal, $firebase) {
 
         var $appTitle = jQuery('#app-title'),
             pusher = new Pusher(pusherConf.publicKey, {authEndpoint: '/auth/login'}),
             channel = pusher.subscribe(pusherConf.presenceChannel),
             defaultAppTitle = $appTitle.html(),
             progressInterval;
+
+        var ref = new Firebase("https://tapmusic.firebaseio.com/queue/" + __userID);
+        var sync = $firebase(ref);
 
         $scope.currentTrack = {
             trackName: '',
@@ -26,6 +29,28 @@
         $scope.playlists = [];
         $scope.chatLog = [];
         $scope.me = '';
+        $scope.localQueue = [];
+        $scope.fireQueue = sync.$asArray();
+
+        $scope.fireQueue.$loaded().then(function () {
+            angular.forEach($scope.fireQueue, function(v)
+            {
+                $scope.localQueue.push(deFireQueueItem(v));
+            });
+        });
+
+
+        $scope.$watch(function () {
+            return $scope.localQueue;
+        }, function (newValue, oldValue) {
+            //angular.forEach($scope.fireQueue, function (v) {
+            //    console.log(v);
+            //})
+            if(newValue.length && oldValue.length){
+                sync.$set(deFireQueueArray($scope.localQueue));
+            }
+        }, true);
+
 
         ion.sound({
             sounds: [
@@ -179,21 +204,44 @@
                 }
             });
 
-            $('body').on('click', '.songIWant',function(){
-                var songID = $(this).attr('id');
-                var parent = $(this).closest('li');
+            //$('body').on('click', '.songIWant',function(){
+            //    var songID = $(this).attr('id');
+            //    var parent = $(this).closest('li');
+            //    $('h1, h5, h4, span, img', parent).animateCSS('bounce');
+            //
+            //    $http.post('/queue/add-song', { songID: songID }).
+            //        success(function (data, status, headers, config) {
+            //            console.log('awesome, your song was added');
+            //        }).
+            //        error(function (data, status, headers, config) {
+            //            console.log('error');
+            //            // called asynchronously if an error occurs
+            //            // or server returns response with an error status.
+            //        });
+            //        return false;
+            //
+            //});
+
+            $('body').on('click', '.songIWant', function () {
+                var songID = $(this).attr('id'),
+                    parent = $(this).closest('li');
+
                 $('h1, h5, h4, span, img', parent).animateCSS('bounce');
 
-                $http.post('/queue/add-song', { songID: songID }).
+                $http.get('/spotify/track', {params: {songID: songID}}).
                     success(function (data, status, headers, config) {
-                        console.log('awesome, your song was added');
+                        $scope.localQueue.push(data);
+                        
+                        sync.$set(deFireQueueArray($scope.localQueue));
+
+                        //$scope.fireQueue.$add($scope.localQueue);
+
+                        //console.log($scope.fireQueue);
                     }).
                     error(function (data, status, headers, config) {
-                        console.log('error');
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
                     });
-                    return false;
+
+                return false;
 
             });
 
@@ -401,6 +449,30 @@
                     // or server returns response with an error status.
                 });
         }
+
+        // a little bit of a hacky sack to get rid of the firebase data so it can be passed up again without issues
+        // probably a better way to do with this with some utility to remove the fields that anger firebase
+        // or even better a way to sync arrays much more elegantly with firebase
+        function deFireQueueItem(data)
+        {
+            return {
+                albumArt: data.albumArt,
+                artistName: data.artistName,
+                id: data.id,
+                trackLength: data.trackLength,
+                trackName: data.trackName
+            };
+        }
+
+        function deFireQueueArray(data) {
+            var queue = [];
+
+            data.forEach(function(track){
+                queue.push(deFireQueueItem(track));
+            });
+
+            return queue;
+        }
     });
 
     tapmusicApp.directive('progressBar', function ($parse, $window) {
@@ -431,42 +503,42 @@
     });
 
 
-tapmusicApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, playlists, $http) {
+    tapmusicApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, playlists, $http) {
 
-    $scope.playlistModalTitle = '';
-    $scope.playlists = playlists;
-    $scope.currentPlaylist = [];
-    $scope.loaderToggleClass = 'hide';
-
-    $scope.ok = function () {
-        //$modalInstance.close($scope.selected.item);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-
-    $scope.hideResults = function () {
         $scope.playlistModalTitle = '';
-    };
+        $scope.playlists = playlists;
+        $scope.currentPlaylist = [];
+        $scope.loaderToggleClass = 'hide';
 
-    $scope.parseTrackTime = function (duration) {
-        return moment(parseInt(duration)).format("m:ss");
-    }
+        $scope.ok = function () {
+            //$modalInstance.close($scope.selected.item);
+        };
 
-    $scope.selectPlaylist = function(id, name) {
-        $scope.loaderToggleClass = '';
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 
-        $http.get('/spotify/playlist', { params: {playlistID: id } }).
-            success(function (data, status, headers, config) {
-                $scope.loaderToggleClass = 'hide';
-                $scope.playlistModalTitle = name;
-                $scope.currentPlaylist = data;
-                jQuery('.modal').animate({scrollTop: 0}, 'fast');
-            }).
-            error(function (data, status, headers, config) {
-            }
-        );
-    };
+        $scope.hideResults = function () {
+            $scope.playlistModalTitle = '';
+        };
 
-});
+        $scope.parseTrackTime = function (duration) {
+            return moment(parseInt(duration)).format("m:ss");
+        }
+
+        $scope.selectPlaylist = function(id, name) {
+            $scope.loaderToggleClass = '';
+
+            $http.get('/spotify/playlist', { params: {playlistID: id } }).
+                success(function (data, status, headers, config) {
+                    $scope.loaderToggleClass = 'hide';
+                    $scope.playlistModalTitle = name;
+                    $scope.currentPlaylist = data;
+                    jQuery('.modal').animate({scrollTop: 0}, 'fast');
+                }).
+                error(function (data, status, headers, config) {
+                }
+            );
+        };
+
+    });

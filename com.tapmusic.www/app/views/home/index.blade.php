@@ -45,7 +45,7 @@
             </div>
 
             <aside class="side_queue">
-                <h5>TAP QUEUE</h5>
+                <h5 class="title">TAP QUEUE</h5>
                 <div class="the-queue">
                     <div class="playing-next" ng-repeat-start="track in queueTracks" ng-if="$first">
                         <div class="next">NEXT</div>
@@ -60,6 +60,18 @@
                                 <img ng-src="{{ track.userImage }}" title="{{ track.userName }}" />
                                 <h1>{{ track.trackName }} <span>- {{ parseTrackTime(track.duration) }}</span></h1>
                                 <h5>{{ track.artistName }}</h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h5 class="title">YOUR QUEUE</h5>
+                <div class="the-queue local">
+                    <div class="queued">
+                        <ul ng-sortable="{animation:150}">
+                            <li ng-repeat="item in localQueue">
+                                <img ng-src="{{ item.albumArt }}" title="{{ item.trackName }}"/>
+                                <h1>{{ item.trackName }} <span>- {{ parseTrackTime(item.trackLength) }}</span></h1>
+                                <h5>{{ item.artistName }}</h5>
                             </li>
                         </ul>
                     </div>

@@ -33,10 +33,7 @@
         $scope.fireQueue = sync.$asArray();
 
         $scope.fireQueue.$loaded().then(function () {
-            angular.forEach($scope.fireQueue, function(v)
-            {
-                $scope.localQueue.push(deFireQueueItem(v));
-            });
+            $scope.localQueue = angular.copy($scope.fireQueue);
         });
 
 
@@ -48,6 +45,7 @@
             //})
             if(newValue.length && oldValue.length){
                 sync.$set(deFireQueueArray($scope.localQueue));
+                //sync.$set(angular.copy($scope.localQueue));
             }
         }, true);
 

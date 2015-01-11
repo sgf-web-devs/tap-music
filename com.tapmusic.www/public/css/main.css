@@ -3633,11 +3633,26 @@ body {
   text-align: left; }
   .side_queue h5 {
     color: #81848E;
-    font-size: 12px; }
+    font-size: 12px;
+    padding-left: 20px; }
+    .side_queue h5.title {
+      margin-bottom: 0;
+      margin-top: 3em; }
+      .side_queue h5.title:first-child {
+        margin-bottom: 0.5em;
+        margin-top: 1.5em; }
 
 .the-queue {
-  max-height: 70vh;
+  max-height: 40vh;
   overflow: auto; }
+
+.the-queue.local {
+  max-height: 40vh; }
+  .the-queue.local li {
+    background: #27282B;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: move; }
 
 .playing-next {
   padding: 10px 0 10px 25px;

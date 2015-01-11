@@ -164,14 +164,29 @@ body{
   h5{
     color:$grayish;
     font-size:12px;
+    padding-left: 20px;
+
+    &.title{
+      margin-bottom: 0;
+      margin-top: 3em;
+      &:first-child{
+        margin-bottom: .5em;
+        margin-top: 1.5em;
+      }
+    }
   }
 }
 
 
 .the-queue{
-  max-height: 70vh;
+  max-height: 40vh;
   //min-height: ;
   overflow: auto;
+}
+
+.the-queue.local{
+  max-height: 40vh;
+  li{ background: #27282B; padding-top: 10px; padding-bottom: 10px; cursor: move; }
 }
 
 .playing-next{

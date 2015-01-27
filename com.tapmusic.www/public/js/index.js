@@ -11,8 +11,13 @@
             defaultAppTitle = $appTitle.html(),
             progressInterval;
 
-        var ref = new Firebase("https://tapmusic.firebaseio.com/queue/" + __userID);
-        var sync = $firebase(ref);
+        var ref = new Firebase("https://tapmusic.firebaseio.com/queue/" + __userID),
+            sync = $firebase(ref),
+            stompersRef = new Firebase("https://tapmusic.firebaseio.com/stompers/"),
+            stompersSync = $firebase(stompersRef),
+            stomperKey = '';
+
+        $scope.stompers = stompersSync.$asArray();
 
         $scope.currentTrack = {
             trackName: '',
@@ -34,6 +39,11 @@
 
         $scope.fireQueue.$loaded().then(function () {
             $scope.localQueue = angular.copy($scope.fireQueue);
+        });
+
+
+        $scope.stompers.$loaded().then(function () {
+            console.log($scope.stompers);
         });
 
 
@@ -110,6 +120,30 @@
                 $scope.me = me;
             });
 
+
+
+            $scope.fireQueue.$loaded().then(function () {
+                if($scope.localQueue.length && !_.findWhere($scope.stompers, {user: me.id})) {
+                    $scope.stompers.$add({
+                        current: false,
+                        user: me.id
+                    }).then(function(ref){
+                        stomperKey = ref.key();
+                        console.log('added to stompers');
+                    });
+                }
+            });
+
+            //$scope.stompers.$add({
+            //    current: false,
+            //    user: 'myke126'
+            //});
+
+            //stompersSync.$push({
+            //    current: false,
+            //    user: 'myke126'
+            //});
+
             console.log(me);
             console.log(channel.members.members);
 
@@ -126,7 +160,12 @@
         });
 
         channel.bind('pusher:member_removed', function(member) {
-            console.log(member);
+            console.log('removed', member);
+
+            var removedMember = _.findWhere($scope.stompers, {user: member.id});
+            console.log(removedMember);
+            stompersSync.$remove(removedMember.$id);
+
             $http.get('/pusher/member-removed', { params: { userID : member.id } }).
                 success(function(data, status, headers, config) {
                     console.log(data);
@@ -229,12 +268,19 @@
                 $http.get('/spotify/track', {params: {songID: songID}}).
                     success(function (data, status, headers, config) {
                         $scope.localQueue.push(data);
-                        
                         sync.$set(deFireQueueArray($scope.localQueue));
+                        
+                        // If this is the first track in the queue add to stompers
+                        if ($scope.localQueue.length && !_.findWhere($scope.stompers, {user: $scope.me.id})) {
+                            $scope.stompers.$add({
+                                current: false,
+                                user: $scope.me.id
+                            }).then(function (ref) {
+                                stomperKey = ref.key();
+                                console.log('added to stompers');
+                            });
+                        }
 
-                        //$scope.fireQueue.$add($scope.localQueue);
-
-                        //console.log($scope.fireQueue);
                     }).
                     error(function (data, status, headers, config) {
                     });
@@ -244,7 +290,6 @@
             });
 
             $('body').on('click', '.songIWantToPreview',function(){
-
                 var current = $(this);
                 var songID = $(this).attr('id');
                 var previewUrl = "";
@@ -471,6 +516,14 @@
 
             return queue;
         }
+
+        // Check if song in queue
+
+        // When user logs in, check queue and add to bottom of stompers if there are tracks
+
+        // When user adds track, add to bottom of stompers if queue was previously empty
+
+        //
     });
 
     tapmusicApp.directive('progressBar', function ($parse, $window) {
